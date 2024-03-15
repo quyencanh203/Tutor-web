@@ -8,3 +8,6 @@ https://v-iashin.github.io/detector
 
 ### cách phân chia nhánh trong nhóm 
 https://ehkoo.com/bai-viet/git-workflow-phan-nhanh-va-chia-viec-trong-nhom
+
+### fonts chữ 
+https://fonts.google.com/ 
