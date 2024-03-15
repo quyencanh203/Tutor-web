@@ -12,4 +12,5 @@ https://ehkoo.com/bai-viet/git-workflow-phan-nhanh-va-chia-viec-trong-nhom
 https://fonts.google.com/ 
 
 
-test thay doi
+### tham khao f8
+https://www.youtube.com/watch?v=x7l0JX68XyA&list=PL_-VfJajZj0U9nEXa4qyfB4U5ZIYCMPlz&index=44&ab_channel=F8Official
