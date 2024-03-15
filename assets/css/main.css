@@ -57,7 +57,7 @@ body {
 
 .container__main-left-button,
 .container__main-right-button {
-    padding: 50px 100px;
+    padding: 5px 10px;
     font-size: 16px;
     border: none;
     border-radius: 5px;
