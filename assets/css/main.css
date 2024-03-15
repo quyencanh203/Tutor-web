@@ -23,7 +23,7 @@ body {
 .header__navbar-list {
     display: flex;
     list-style-type: none;
-    margin: 0;
+    margin: 10px;
     padding: 0;
 }
 
@@ -38,12 +38,26 @@ body {
     justify-content: center; /* Canh giữa các phần tử trong container__main-controls */
     align-items: center;
     margin-top: 50px; /* Khoảng cách từ top */
+    margin-bottom: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
-.container__main-choose-image-button,
+.container__main-choose-image-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+
 .container__main-left-button,
 .container__main-right-button {
-    padding: 10px 20px;
+    padding: 50px 100px;
     font-size: 16px;
     border: none;
     border-radius: 5px;
