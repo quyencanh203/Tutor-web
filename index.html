@@ -17,32 +17,34 @@
 
         <!--header cua app-->
         <header class="header">
+            <h1 class="header__title">Animal Recognition</h1>
             <nav class="header__navbar">
-                <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">About</a></li>
-                    <li><a href="#">Contact</a></li>
+                <ul class="header__navbar-list">
+                    <li class="header__navbar-item">Home</li>
+                    <li class="header__navbar-item">About</li>
+                    <li class="header__navbar-item">Contact</li>
+                </ul>
+
+                <ul class="header__navbar-list">
+                    <li class="header__navbar-item">Notification</li>
+                    <li class="header__navbar-item">Login</li>
+                    <li class="header__navbar-item">History</li>
                 </ul>
             </nav>
-            <h1>Animal Recognition</h1>
 
         </header>
 
         <!--container cua app-->
         <div class="container">
-
+            <main class="container__main">
+                <div class="container__main-controls">
+                    <input type="file" id="imageInput" accept="image/*" style="display: none;">
+                    <label for="imageInput" class="container__main-choose-image-button">Choose Image</label>
+                    <button id="leftButton" class="container__main-left-button">Left Button</button>
+                    <button id="rightButton" class="container__main-right-button">Right Button</button>
+                </div>
+            </main>
         </div>
-
-
-
-        <main>
-            <div class="animal">
-                <input type="file" id="imageInput" accept="image/*" style="display: none;">
-                <label for="imageInput" id="chooseImageButton">Choose Image</label>
-                <button id="leftButton" class="left-button">Left Button</button>
-                <button id="rightButton" class="right-button">Right Button</button>
-            </div>
-        </main>
 
         <!-- footer cua app -->
         <footer class="footer">
