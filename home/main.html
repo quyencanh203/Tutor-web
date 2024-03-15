@@ -3,13 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Website Title</title>
-    <!-- Link to your CSS file -->
+    <title>Animal Recognition</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
-        <h1>Your Website Header</h1>
+        <h1>Animal Recognition</h1>
     </header>
     
     <nav>
@@ -21,12 +20,17 @@
     </nav>
     
     <main>
-        <h2>Welcome to Your Website!</h2>
-        <p>This is a basic example of a web page.</p>
+        <div class="animal">
+            <input type="file" id="imageInput" accept="image/*" style="display: none;">
+            <label for="imageInput" id="chooseImageButton">Choose Image</label>
+            <button id="leftBottomButton" class="bottom-left-button">Left Bottom</button>
+            <button id="rightBottomButton" class="bottom-right-button">Right Bottom</button>
+        </div>
     </main>
     
     <footer>
-        <p>&copy; 2024 Your Website. All rights reserved.</p>
+        <p>&copy; 2024 Animal Recognition. All rights reserved.</p>
     </footer>
+
 </body>
 </html>
