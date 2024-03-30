@@ -1,4 +1,4 @@
-# Tên dự án
+# Image Generation
 
 Mô tả ngắn gọn về dự án.
 
