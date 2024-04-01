@@ -1,16 +1,29 @@
-# project-csttnt-
-https://www.youtube.com/watch?v=1lK44WeNdv8&list=PLgk9x84DhO7W9Zkn2PCFP-26WLuKbbRHK&index=1
+# Image Generation
 
+Mô tả ngắn gọn về dự án.
 
-### link web tham khảo.
-https://v-iashin.github.io/detector
+## Nội dung
 
-### cách phân chia nhánh trong nhóm 
-https://ehkoo.com/bai-viet/git-workflow-phan-nhanh-va-chia-viec-trong-nhom
+1. [Thông tin dự án](#thông-tin-dự-án)
+2. [Yêu cầu](#yêu-cầu)
+3. [Cài đặt](#cài-đặt)
+4. [Sử dụng](#sử-dụng)
+5. [Đóng góp](#đóng-góp)
+6. [Giấy phép](#giấy-phép)
 
-### fonts chữ 
-https://fonts.google.com/ 
+## Thông tin dự án
 
+Miêu tả chi tiết về dự án, bao gồm mục tiêu, chức năng, và các tính năng chính.
 
-### tham khao f8
-https://www.youtube.com/watch?v=x7l0JX68XyA&list=PL_-VfJajZj0U9nEXa4qyfB4U5ZIYCMPlz&index=44&ab_channel=F8Official
+## Yêu cầu
+
+Liệt kê các yêu cầu cần thiết để cài đặt và chạy dự án.
+
+## Cài đặt
+
+Hướng dẫn cài đặt dự án và thiết lập môi trường phát triển.
+
+```bash
+git clone https://github.com/your-username/your-project.git
+cd your-project
+npm install
