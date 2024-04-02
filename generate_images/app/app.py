@@ -54,6 +54,7 @@ def register():
         hashed_password = bcrypt.hashpw(password, bcrypt.gensalt()).decode('utf-8')
 
         cur = mysql.connection.cursor()
+        # lỗi khi thêm tài khoản không có auto-increment cho trường userid
         cur.execute("INSERT INTO users (name, email, password) VALUES (%s, %s, %s)", (name, email, hashed_password))
         mysql.connection.commit()
         cur.close()
