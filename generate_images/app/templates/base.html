@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Image Generation App</title>
+    <title>Home app</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
@@ -20,6 +20,12 @@
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{{url_for('logout')}}">Logout</a>
+            </li>
+            <li class="nav-item">
+              <a href="" class="btn btn-outline-light mx-2">Đăng ký làm gia sư</a>
+            </li>
+            <li class="nav-item">
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
             </li>
             {% else %}
             <li class="nav-item">
