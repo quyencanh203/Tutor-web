@@ -2,10 +2,16 @@
 
 {% block content %}
 
+
+  <!-- As a heading -->
+  <nav class="navbar navbar-light bg-light">
+    <span class="navbar-brand mb-0 h1">Image Generation App</span>
+</nav>
+
+
+
 <div class="container mt-5">
     <h1 class="mb-4">Image Generation App</h1>
-    <a href="{{url_for('login')}}">login</a><br>
-    <a href="{{url_for('register')}}">register</a><br>
     <form>
         <div class="form-group">
             <p>Nhập text vào đây để gen ra ảnh nhé: </p>
