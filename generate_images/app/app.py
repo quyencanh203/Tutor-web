@@ -13,7 +13,6 @@ app.config["MYSQL_PASSWORD"] = ""
 app.config["MYSQL_DB"] = "mydata"
 app.config["SECRET_KEY"] = 'secret_key'
 
-
 mysql = MySQL(app)
 
 @app.route('/')
@@ -38,10 +37,12 @@ def login():
         if user and bcrypt.checkpw(password, user[3].encode('utf-8')):  # Truy cập mật khẩu thông qua chỉ số
 
            # set session variable
+
+
            session['loggedin'] = True
            session['id'] = user[0]  # Truy cập id thông qua chỉ số
            session['name'] = user[1]  # Truy cập tên thông qua chỉ số
-           flash('Logged in successfully!', 'success')
+           flash('Logged in successfully!', category = 'success')
            return redirect(url_for('home'))
         else:
 
@@ -86,6 +87,7 @@ def logout():
     session.pop('name', None)
     flash('Logged out successfully!', category = 'success')
 
+    return redirect(url_for('login'))
 
 if __name__ == '__main__':
     app.run('0.0.0.0', '5000', debug=True)
