@@ -10,15 +10,8 @@ app.config["MYSQL_HOST"] = "localhost"
 app.config["MYSQL_PORT"] = 3307 
 app.config["MYSQL_USER"] = "root"
 app.config["MYSQL_PASSWORD"] = ""
-
 app.config["MYSQL_DB"] = "mydata"
 app.config["SECRET_KEY"] = 'secret_key'
-
-
-# # Extra configs, optional:
-# app.config["MYSQL_CURSORCLASS"] = "DictCursor"
-# app.config["MYSQL_CUSTOM_OPTIONS"] = {"ssl": {"ca": "/path/to/ca-file"}}  # https://mysqlclient.readthedocs.io/user_guide.html#functions-and-attributes
-
 
 mysql = MySQL(app)
 
@@ -36,9 +29,6 @@ def login():
         password = request.form['password'].encode('utf-8')
 
         # creating a connection cursor 
-
-
-
         cur = mysql.connection.cursor()
         cur.execute("SELECT * FROM users WHERE email = %s", (email,))
         user = cur.fetchone()
@@ -52,13 +42,11 @@ def login():
            session['loggedin'] = True
            session['id'] = user[0]  # Truy cập id thông qua chỉ số
            session['name'] = user[1]  # Truy cập tên thông qua chỉ số
-           flash('Logged in successfully!', 'success')
+           flash('Logged in successfully!', category = 'success')
            return redirect(url_for('home'))
         else:
 
             flash('Incorrect email or password', category = 'danger')
-
-            flash('Incorrect email or password', 'danger')
 
             return render_template('login.html')
 
@@ -99,10 +87,6 @@ def logout():
     session.pop('name', None)
     flash('Logged out successfully!', category = 'success')
 
-    session.pop('loggedin', None)
-    session.pop('id', None)
-    session.pop('name', None)
-    flash('Logged out successfully!', 'success')
     return redirect(url_for('login'))
 
 if __name__ == '__main__':
