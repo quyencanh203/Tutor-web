@@ -15,15 +15,16 @@ app.config["SECRET_KEY"] = 'secret_key'
 
 mysql = MySQL(app)
 
-@app.route('/')
+@app.route('/home')
 def home():
     # check loggedin 
     if not session.get('loggedin'):
         return redirect(url_for('login'))
     return render_template('index.html')
 
-@app.route('/login', methods=['GET', 'POST'])
+@app.route('/', methods=['GET', 'POST'])
 def login():
+    session['loggedin'] = False
     if request.method == 'POST':
         email = request.form['email']
         password = request.form['password'].encode('utf-8')

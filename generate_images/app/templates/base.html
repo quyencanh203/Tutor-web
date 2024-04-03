@@ -14,6 +14,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
+            <!-- logic navbar -->
             {% if session['loggedin'] == True %}
             <li class="nav-item active">
               <a class="nav-link" href="{{url_for('home')}}">Home <span class="sr-only">(current)</span></a>
