@@ -1,4 +1,3 @@
-
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 from flask_mysqldb import MySQL
 import bcrypt
@@ -38,17 +37,13 @@ def login():
         if user and bcrypt.checkpw(password, user[3].encode('utf-8')):  # Truy cập mật khẩu thông qua chỉ số
 
            # set session variable
-
-
            session['loggedin'] = True
            session['id'] = user[0]  # Truy cập id thông qua chỉ số
            session['name'] = user[1]  # Truy cập tên thông qua chỉ số
            flash('Logged in successfully!', category = 'success')
            return redirect(url_for('home'))
         else:
-
             flash('Incorrect email or password', category = 'danger')
-
             return render_template('login.html')
 
     return render_template('login.html')
@@ -61,22 +56,27 @@ def register():
         password = request.form['password'].encode('utf-8')
         hashed_password = bcrypt.hashpw(password, bcrypt.gensalt()).decode('utf-8')
 
+        # Create cursor
         cur = mysql.connection.cursor()
-        
-        cur.execute("INSERT INTO users (name, email, password) VALUES (%s, %s, %s)", (name, email, hashed_password))
-        # saving the actions performed on the DB 
-        mysql.connection.commit()
-        # closing the cursor
-        cur.close()
 
-        flash('Registered successfully! You can now login.', category = 'success')
+        try:
+            # Execute SQL query
+            cur.execute("INSERT INTO users (name, email, password) VALUES (%s, %s, %s)", (name, email, hashed_password))
+            
+            # Commit the transaction
+            mysql.connection.commit()
 
-        cur.execute("INSERT INTO users (name, email, password) VALUES (%s, %s, %s)", (name, email, hashed_password))
-        mysql.connection.commit()
-        cur.close()
+            # Close the cursor
+            cur.close()
 
-        flash('Registered successfully! You can now login.', 'success')
-        return redirect(url_for('login'))
+            flash('Registered successfully! You can now login.', 'success')
+            return redirect(url_for('login'))
+
+        except Exception as e:
+            flash('An error occurred while registering. Please try again.', 'danger')
+            print(e)
+            cur.close()
+            return redirect(url_for('register'))
 
     return render_template('register.html')
 
@@ -87,7 +87,6 @@ def logout():
     session.pop('id', None)
     session.pop('name', None)
     flash('Logged out successfully!', category = 'success')
-
     return redirect(url_for('login'))
 
 if __name__ == '__main__':
