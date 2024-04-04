@@ -89,5 +89,9 @@ def logout():
     flash('Logged out successfully!', category = 'success')
     return redirect(url_for('login'))
 
+@app.route('/home/registerTutor')
+def registerTutor():
+    return render_template('registerTutor.html')
+
 if __name__ == '__main__':
     app.run('0.0.0.0', '5000', debug=True)

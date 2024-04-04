@@ -8,25 +8,29 @@
 <body>
     <!-- navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">Navbar</a>
+        <a class="navbar-brand" href="#">tutor website</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon "></span>
+          <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav">
+          <!-- navbar items  -->
+          <ul class="navbar-nav mr-auto">
             <!-- logic navbar -->
             {% if session['loggedin'] == True %}
-            <li class="nav-item active">
-              <a class="nav-link" href="{{url_for('home')}}">Home <span class="sr-only">(current)</span></a>
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('home')}}">Home</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{{url_for('logout')}}">Logout</a>
             </li>
             <li class="nav-item">
-              <a href="" class="btn btn-outline-light mx-2">Đăng ký làm gia sư</a>
+              <a class="nav-link" href="{{url_for('registerTutor')}}" >Register as a tutor</a>
             </li>
             <li class="nav-item">
-              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+              <form class="form-inline">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+              </form>
             </li>
             {% else %}
             <li class="nav-item">
@@ -64,6 +68,10 @@
         {% block content %}
         {% endblock %}
     </div>
-    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/main.js')}}"></script>
+        <!-- Thêm Bootstrap JS và Popper.js -->
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </body>
 </html>
