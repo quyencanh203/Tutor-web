@@ -1,4 +1,4 @@
-# Image Generation
+# TutorApp
 
 Mô tả ngắn gọn về dự án.
 
@@ -22,6 +22,10 @@ Liệt kê các yêu cầu cần thiết để cài đặt và chạy dự án.
 ## Cài đặt
 
 Hướng dẫn cài đặt dự án và thiết lập môi trường phát triển.
+- pip install virtualenv 
+- virtualenv venv
+- venv/Scripts/activate
+- pip install -r requirements.txt 
 
 ```bash
 git clone https://github.com/your-username/your-project.git
