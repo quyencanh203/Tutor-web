@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 # Required
 app.config["MYSQL_HOST"] = "localhost"
-app.config["MYSQL_PORT"] = 3307 
+app.config["MYSQL_PORT"] = 3306 
 app.config["MYSQL_USER"] = "root"
 app.config["MYSQL_PASSWORD"] = ""
 app.config["MYSQL_DB"] = "mydata"
@@ -92,6 +92,10 @@ def logout():
 @app.route('/home/registerTutor')
 def registerTutor():
     return render_template('registerTutor.html')
+
+@app.route('/home/myInformation')
+def myInformation():
+    return render_template('myInformation.html')
 
 if __name__ == '__main__':
     app.run('0.0.0.0', '5000', debug=True)
