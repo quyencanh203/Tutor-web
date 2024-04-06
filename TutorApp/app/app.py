@@ -93,9 +93,9 @@ def logout():
 def registerTutor():
     return render_template('registerTutor.html')
 
-@app.route('/home/myInformation')
-def myInformation():
-    return render_template('myInformation.html')
+@app.route('/home/profile')
+def profile():
+    return render_template('profile.html')
 
 if __name__ == '__main__':
     app.run('0.0.0.0', '5000', debug=True)
