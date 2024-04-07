@@ -2,18 +2,84 @@
 
 {% block content %}
 
-<div class="container mt-5">
-    <h1 class="mb-4">Image Generation App</h1>
-    <a href="{{url_for('login')}}">login</a><br>
-    <a href="{{url_for('register')}}">register</a><br>
-    <form>
-        <div class="form-group">
-            <p>Nhập text vào đây để gen ra ảnh nhé: </p>
-            <textarea name="prompt" rows="3" cols="50" style="font-size: 16pt"></textarea>
-        </div>
-    </form>
 
-    <button id="generate-button" class="btn btn-primary">Generate Image</button>
+  <!-- As a heading -->
+  <nav class="navbar navbar-light bg-light">
+    <span class="navbar-brand mb-0 h1">My web</span>
+</nav>
+<!-- new -->
+<div class="container">
+    <h2>Bộ lọc</h2>
+<div class="row align-items-center">
+    <div class="col">
+        <label for="select" class="form-label">Mon Hoc</label>
+        <select class="form-select form-check-inline">
+            <option>toan</option>
+            <option>van</option>
+            <option>ngoai ngu</option>
+        </select>
+    </div>
+    <div class="col">
+        <label for="select" class="form-label">Lop</label>
+        <select class="form-select form-check-inline">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+        </select>
+    </div>
+
+    <div class="col">
+        <label for="select" class="form-label">Yeu cau</label>
+        <select class="form-select form-check-inline">
+            <option>Sinh Vien</option>
+            <option>Giao Vien</option>
+        </select>
+    </div>
+
+    <div class="col">
+        <label for="select" class="form-label">Khu Vuc</label>
+        <select class="form-select form-check-inline">
+            <option>A</option>
+            <option>B</option>
+            <option>C</option>
+        </select>
+    </div>
+    <div class="col">
+        <button type="button" class="btn btn-primary">Lọc</button>
+    </div>
 </div>
+</div>
+
+<!-- đoạn này thêm mẫu để test có thể xóa  -->
+<div class="col-lg-3">
+    <div class="myclass-item text-small">
+        <div class="myclass-item-head d-flex">
+            <a href="/lop-gia-su/D4970" class="mr-auto" rel="nofollow">
+                <span class="font-weight-bold">D4970</span>
+                        </a>
+                </div>
+        <div class="myclass-item-body">
+            <p class="p-icon mb-2">
+                <icon class="icon-myclass icon-book text-muted text-small"></icon>
+                <b>Toán Học, Tiếng Việt - Lớp 1</b>
+            </p>
+            <p class="p-icon mb-2">
+                <icon class="icon-map-marker text-muted text-small"></icon>
+                KTT F361 An Dương, Tây Hồ, Hà Nội        </p>
+            <p class="p-icon mb-2">
+                <icon class="icon-dollar text-muted text-small"></icon>
+                300.000 ₫/buổi, 3 buổi/tuần
+            </p>
+            <p class="p-icon mb-2">
+                <icon class="icon-myclass icon-bookmark text-muted"></icon>
+                Yêu cầu: Giáo Viên        </p>
+            <div class="text-right mt-3">
+                <a href="/lop-gia-su/D4970" class="btn btn-success"
+                    rel="nofollow">Xem chi tiết</a>
+            </div>
+        </div>
+    </div>
+    </div>
+
 
 {% endblock %}
