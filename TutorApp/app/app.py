@@ -97,5 +97,12 @@ def registerTutor():
 def profile():
     return render_template('profile.html')
 
+
+# post website
+@app.route('/home/post')
+def post():
+    return render_template('post.html')
+
+
 if __name__ == '__main__':
     app.run('0.0.0.0', '5000', debug=True)

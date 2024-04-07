@@ -1,0 +1,9 @@
+.box{
+    background-color: red;
+    min-height: 50px;
+    margin-top: 20px;
+}
+.navbar-logo {
+    max-height: 60px; /* Đặt chiều cao tối đa cho logo */
+    width: auto; /* Đảm bảo chiều rộng tự động điều chỉnh theo tỷ lệ */
+}
