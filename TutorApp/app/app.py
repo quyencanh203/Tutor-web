@@ -21,6 +21,11 @@ def home():
         return redirect(url_for('login'))
     return render_template('index.html')
 
+# class 
+@app.route('/Class')
+def Class():
+    return render_template('class.html')
+
 @app.route('/', methods=['GET', 'POST'])
 def login():
     session['loggedin'] = False
