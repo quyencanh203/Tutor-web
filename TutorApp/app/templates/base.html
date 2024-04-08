@@ -20,36 +20,61 @@
           <ul class="navbar-nav mr-auto">
             <!-- logic navbar -->
             {% if session['loggedin'] == True %}
-            <li class="nav-item">
-              <a class="nav-link" href="{{url_for('home')}}">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{{url_for('Class')}}">Class</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{{url_for('logout')}}">Logout</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{{url_for('profile')}}">My profile</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{{url_for('registerTutor')}}" >Register as a tutor</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{{url_for('post')}}" >Create post</a>
-            </li>
-            <li class="nav-item">
-              <form class="form-inline">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
-              </form>
-            </li>
+               {% if session['role'] == 'student'%} 
+                  <li class="nav-item">
+                   <a class="nav-link" href="{{url_for('home')}}">Home</a>
+                  </li>
+                  <!-- <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('Class')}}">Class</a>
+                  </li> -->
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('profile')}}">My profile</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('post')}}" >Create post</a>
+                  </li>
+                  <li class="nav-item">
+                    <form class="form-inline">
+                      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                      <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+                    </form>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('logout')}}">Logout</a>
+                  </li>
+               {% else %}
+                  <li class="nav-item">
+                   <a class="nav-link" href="{{url_for('home')}}">Home</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('Class')}}">Class</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('profile')}}">My profile</a>
+                  </li>
+                  <!-- <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('post')}}" >Create post</a>
+                  </li> -->
+                  <li class="nav-item">
+                    <form class="form-inline">
+                      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                      <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+                    </form>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('logout')}}">Logout</a>
+                  </li>
+               {% endif%}
+           
             {% else %}
             <li class="nav-item">
               <a class="nav-link" href="{{url_for('login')}}">Login</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{{url_for('register')}}">Register</a>
+              <a class="nav-link" href="{{url_for('registerS')}}">Register as a student</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('registerT')}}" >Register as a tutor</a>
             </li>
             {% endif %}
           </ul>

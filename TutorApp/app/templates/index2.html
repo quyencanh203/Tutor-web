@@ -69,3 +69,27 @@
     </div>
 </body>
 </html>
+
+<!-- @app.route('/registerT', methods=['GET', 'POST'])
+def registerT():
+    if request.method == 'POST':
+        user_id = session['id']
+        print(user_id)
+        name_tutor = request.form['name']
+        phone = request.form['phone']
+        describe_ex = request.form['experience']
+        
+        cur = mysql.connection.cursor()
+        
+        try:
+            cur.execute("INSERT INTO tutor (user_id, name_tutor, phone, describe_ex) VALUE (%s, %s, %s, %s)", (user_id, name_tutor, phone, describe_ex))
+            mysql.connection.commit()
+            cur.close()
+            return redirect(url_for('login'))
+        except Exception as e:
+            flash('error', 'danger')
+            print(e)
+            cur.close()
+            return redirect(url_for('registerT'))
+        
+    return render_template('registerT.html') -->

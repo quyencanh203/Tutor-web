@@ -43,8 +43,9 @@ def login():
 
            # set session variable
            session['loggedin'] = True
-           session['id'] = user[0]  # Truy cập id thông qua chỉ số
+           session['user_id'] = user[0]  # Truy cập id thông qua chỉ số
            session['name'] = user[1]  # Truy cập tên thông qua chỉ số
+           session['role'] = user[4]
            flash('Logged in successfully!', category = 'success')
            return redirect(url_for('home'))
         else:
@@ -53,11 +54,12 @@ def login():
 
     return render_template('login.html')
 
-@app.route('/register', methods=['GET', 'POST'])
-def register():
+@app.route('/registerS', methods=['GET', 'POST'])
+def registerS():
     if request.method == 'POST':
         name = request.form['name']
         email = request.form['email']
+        role = request.form['role']
         password = request.form['password'].encode('utf-8')
         hashed_password = bcrypt.hashpw(password, bcrypt.gensalt()).decode('utf-8')
 
@@ -66,7 +68,7 @@ def register():
 
         try:
             # Execute SQL query
-            cur.execute("INSERT INTO users (name, email, password) VALUES (%s, %s, %s)", (name, email, hashed_password))
+            cur.execute("INSERT INTO users (name, email, password, role) VALUES (%s, %s, %s, %s)", (name, email, hashed_password, role))
             
             # Commit the transaction
             mysql.connection.commit()
@@ -81,9 +83,9 @@ def register():
             flash('An error occurred while registering. Please try again.', 'danger')
             print(e)
             cur.close()
-            return redirect(url_for('register'))
+            return redirect(url_for('registerS'))
 
-    return render_template('register.html')
+    return render_template('registerS.html')
 
 @app.route('/logout')
 def logout():
@@ -94,28 +96,38 @@ def logout():
     flash('Logged out successfully!', category = 'success')
     return redirect(url_for('login'))
 
-@app.route('/home/registerTutor', methods=['GET', 'POST'])
-def registerTutor():
+@app.route('/registerT', methods=['GET', 'POST'])
+def registerT():
     if request.method == 'POST':
-        user_id = session['id']
-        print(user_id)
-        name_tutor = request.form['name']
-        phone = request.form['phone']
-        describe_ex = request.form['experience']
-        
+        name = request.form['name']
+        email = request.form['email']
+        role = request.form['role']
+        password = request.form['password'].encode('utf-8')
+        hashed_password = bcrypt.hashpw(password, bcrypt.gensalt()).decode('utf-8')
+
+        # Create cursor
         cur = mysql.connection.cursor()
-        
+
         try:
-            cur.execute("INSERT INTO tutor (user_id, name_tutor, phone, describe_ex) VALUE (%s, %s, %s, %s)", (user_id, name_tutor, phone, describe_ex))
+            # Execute SQL query
+            cur.execute("INSERT INTO users (name, email, password, role) VALUES (%s, %s, %s, %s)", (name, email, hashed_password, role))
+            
+            # Commit the transaction
             mysql.connection.commit()
+
+            # Close the cursor
             cur.close()
+
+            flash('Registered successfully! You can now login.', 'success')
+            return redirect(url_for('login'))
+
         except Exception as e:
-            flash('error', 'danger')
+            flash('An error occurred while registering. Please try again.', 'danger')
             print(e)
             cur.close()
-            return redirect(url_for('registerTutor'))
-        
-    return render_template('registerTutor.html')
+            return redirect(url_for('registerT'))
+
+    return render_template('registerT.html')
 
 @app.route('/home/profile')
 def profile():
