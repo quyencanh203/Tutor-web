@@ -3,7 +3,7 @@
 {% block content %}
 <div class="container mt-5">
     <h2>Đăng ký trở thành gia sư</h2>
-    <form action="/submit_form" method="post" enctype="multipart/form-data">
+    <form action="registerTutor" method="post" enctype="multipart/form-data">
         <!-- Tên gia sư -->
         <div class="form-group">
             <label for="name">Họ và tên:</label>
@@ -17,22 +17,11 @@
             <input type="tel" class="form-control" id="phone" name="phone" required>
         </div>
 
-        <!-- Địa chỉ gia sư -->
-        <div class="form-group">
-            <label for="address">Địa chỉ:</label>
-            <input type="text" class="form-control" id="address" name="address" required>
-        </div>
 
         <!-- Mô tả kinh nghiệm -->
         <div class="form-group">
             <label for="experience">Mô tả kinh nghiệm:</label>
             <textarea class="form-control" id="experience" name="experience" rows="4" required></textarea>
-        </div>
-
-        <!-- Upload minh chứng -->
-        <div class="form-group">
-            <label for="proof">Tải lên minh chứng (CV, bằng cấp, giấy tờ liên quan):</label>
-            <input type="file" class="form-control-file" id="proof" name="proof" required>
         </div>
 
         <!-- Gửi yêu cầu -->

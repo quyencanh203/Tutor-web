@@ -9,7 +9,7 @@ app.config["MYSQL_HOST"] = "localhost"
 app.config["MYSQL_PORT"] = 3306 
 app.config["MYSQL_USER"] = "root"
 app.config["MYSQL_PASSWORD"] = ""
-app.config["MYSQL_DB"] = "mydata"
+app.config["MYSQL_DB"] = "database1"
 app.config["SECRET_KEY"] = 'secret_key'
 
 mysql = MySQL(app)
@@ -94,8 +94,27 @@ def logout():
     flash('Logged out successfully!', category = 'success')
     return redirect(url_for('login'))
 
-@app.route('/home/registerTutor')
+@app.route('/home/registerTutor', methods=['GET', 'POST'])
 def registerTutor():
+    if request.method == 'POST':
+        user_id = session['id']
+        print(user_id)
+        name_tutor = request.form['name']
+        phone = request.form['phone']
+        describe_ex = request.form['experience']
+        
+        cur = mysql.connection.cursor()
+        
+        try:
+            cur.execute("INSERT INTO tutor (user_id, name_tutor, phone, describe_ex) VALUE (%s, %s, %s, %s)", (user_id, name_tutor, phone, describe_ex))
+            mysql.connection.commit()
+            cur.close()
+        except Exception as e:
+            flash('error', 'danger')
+            print(e)
+            cur.close()
+            return redirect(url_for('registerTutor'))
+        
     return render_template('registerTutor.html')
 
 @app.route('/home/profile')
