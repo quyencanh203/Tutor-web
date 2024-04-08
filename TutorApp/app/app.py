@@ -8,7 +8,7 @@ app = Flask(__name__)
 app.config["MYSQL_HOST"] = "localhost"
 app.config["MYSQL_PORT"] = 3306 
 app.config["MYSQL_USER"] = "root"
-app.config["MYSQL_PASSWORD"] = ""
+app.config["MYSQL_PASSWORD"] = "quan342004q"
 app.config["MYSQL_DB"] = "mydata"
 app.config["SECRET_KEY"] = 'secret_key'
 
@@ -98,8 +98,18 @@ def profile():
     return render_template('profile.html')
 
 # post website
-@app.route('/home/post')
+@app.route('/home/post',methods=['GET', 'POST'])
 def post():
+    if request.method == 'POST':
+        classnumber = request.form['classnumber']
+        subject = request.form['subject']
+        address = request.form['address']
+        describe_request = request.form['describe_request']
+
+        cur = mysql.connection.cursor()
+        cur.execute("INSERT INTO requirement(class,subject, address, describe_request) values(%s, %s, %s, %s)", (classnumber, subject, address, describe_request))
+        mysql.connection.commit()
+        cur.close()
     return render_template('post.html')
 
 if __name__ == '__main__':
