@@ -19,6 +19,10 @@
             <label for="password">Password:</label>
             <input type="password" class="form-control" id="password" name="password" placeholder="Enter password" required>
         </div>
+        <input type="radio" name="sex" value="male">
+        <label for="">male</label><br>
+        <input type="radio" name="sex" value="female">
+        <label for="">female</label><br>
         <input type="hidden" name="role" value="student">
         <button type="submit" class="btn btn-primary">Register</button>
         <p class="bottom">Already have an account? <a class="bottom" href="{{ url_for('login') }}">Login here</a></p>

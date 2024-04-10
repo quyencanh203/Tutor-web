@@ -9,7 +9,7 @@ app.config["MYSQL_HOST"] = "localhost"
 app.config["MYSQL_PORT"] = 3306 
 app.config["MYSQL_USER"] = "root"
 app.config["MYSQL_PASSWORD"] = ""
-app.config["MYSQL_DB"] = "database1"
+app.config["MYSQL_DB"] = "database2"
 app.config["SECRET_KEY"] = 'secret_key'
 
 mysql = MySQL(app)
@@ -45,7 +45,7 @@ def login():
            session['loggedin'] = True
            session['user_id'] = user[0]  # Truy cập id thông qua chỉ số
            session['name'] = user[1]  # Truy cập tên thông qua chỉ số
-           session['role'] = user[4]
+           session['role'] = user[5]
            flash('Logged in successfully!', category = 'success')
            return redirect(url_for('home'))
         else:
@@ -59,6 +59,7 @@ def registerS():
     if request.method == 'POST':
         name = request.form['name']
         email = request.form['email']
+        sex = request.form['sex']
         role = request.form['role']
         password = request.form['password'].encode('utf-8')
         hashed_password = bcrypt.hashpw(password, bcrypt.gensalt()).decode('utf-8')
@@ -68,7 +69,7 @@ def registerS():
 
         try:
             # Execute SQL query
-            cur.execute("INSERT INTO users (name, email, password, role) VALUES (%s, %s, %s, %s)", (name, email, hashed_password, role))
+            cur.execute("INSERT INTO users (name, email, password, sex, role) VALUES (%s, %s, %s, %s, %s)", (name, email, hashed_password, sex, role))
             
             # Commit the transaction
             mysql.connection.commit()
@@ -101,6 +102,7 @@ def registerT():
     if request.method == 'POST':
         name = request.form['name']
         email = request.form['email']
+        sex = request.form['sex']
         role = request.form['role']
         password = request.form['password'].encode('utf-8')
         hashed_password = bcrypt.hashpw(password, bcrypt.gensalt()).decode('utf-8')
@@ -110,7 +112,7 @@ def registerT():
 
         try:
             # Execute SQL query
-            cur.execute("INSERT INTO users (name, email, password, role) VALUES (%s, %s, %s, %s)", (name, email, hashed_password, role))
+            cur.execute("INSERT INTO users (name, email, password, sex, role) VALUES (%s, %s, %s, %s, %s)", (name, email, hashed_password, sex, role))
             
             # Commit the transaction
             mysql.connection.commit()
