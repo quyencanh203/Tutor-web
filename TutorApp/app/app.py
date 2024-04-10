@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 from flask_mysqldb import MySQL
 import bcrypt
+from datetime import datetime
 
 app = Flask(__name__)
 
@@ -9,7 +10,7 @@ app.config["MYSQL_HOST"] = "localhost"
 app.config["MYSQL_PORT"] = 3306 
 app.config["MYSQL_USER"] = "root"
 app.config["MYSQL_PASSWORD"] = "quan342004q"
-app.config["MYSQL_DB"] = "mydata"
+app.config["MYSQL_DB"] = "mydata2"
 app.config["SECRET_KEY"] = 'secret_key'
 
 mysql = MySQL(app)
@@ -101,15 +102,15 @@ def profile():
 @app.route('/home/post',methods=['GET', 'POST'])
 def post():
     if request.method == 'POST':
-        classnumber = request.form['classnumber']
         subject = request.form['subject']
-        address = request.form['address']
+        class_student = request.form['class_student']
+        booking_date = datetime.now()
+        price = request.form['price']
         describe_request = request.form['describe_request']
-
-        cur = mysql.connection.cursor()
-        cur.execute("INSERT INTO requirement(class,subject, address, describe_request) values(%s, %s, %s, %s)", (classnumber, subject, address, describe_request))
+        cursor = mysql.connection.cursor()
+        cursor.execute('INSERT INTO booking (subject, class_student, booking_date, status_booking, price, describe_request) VALUES (%s, %s, %s, %s, %s, %s)', (subject, class_student, booking_date, 'Pending', price, describe_request))
         mysql.connection.commit()
-        cur.close()
+        cursor.close()
     return render_template('post.html')
 
 if __name__ == '__main__':
