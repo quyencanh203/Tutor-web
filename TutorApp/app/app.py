@@ -149,21 +149,42 @@ def registerT():
 
     return render_template('registerT.html')
 
+# profile 
 @app.route('/home/profile')
 def profile():
-    # # Kết nối đến cơ sở dữ liệu
-    # cur = mysql.connection.cursor()
+    # Kết nối đến cơ sở dữ liệu
+    cur = mysql.connection.cursor()
+    
+    user_id = session['user_id']
+    
+    # Truy vấn dữ liệu từ bảng người dùng
+    cur.execute("SELECT * FROM users WHERE user_id = %s", (user_id,))
+    user = cur.fetchone()
 
-    # # Truy vấn dữ liệu từ bảng người dùng
-    # cur.execute("SELECT * FROM users WHERE id = 1")  # Giả sử id của người dùng là 1
-    # user = cur.fetchone()
+    if session['role'] == 'tutor':
+        # Truy vấn dữ liệu từ bảng tutor
+        cur.execute("SELECT * FROM tutor WHERE user_id = %s", (user_id,))
+        tutor = cur.fetchone()
+    
+        # Đóng kết nối
+        cur.close()
+        
+        # Trả về trang profile và truyền dữ liệu người dùng
+        return render_template('profile.html', user=user, tutor = tutor)
+    elif session['role'] == 'student':
+        # Truy vấn dữ liệu từ bảng tutor
+        cur.execute("SELECT * FROM student WHERE user_id = %s", (user_id,))
+        student = cur.fetchone()
+    
+        # Đóng kết nối
+        cur.close()
+        print('student infor : ')
+        print(student)
+        print('user infor')
+        print(user)
 
-    # # Đóng kết nối
-    # cur.close()
-    # cur.close()
-
-    # Trả về trang profile và truyền dữ liệu người dùng
-    return render_template('profile.html')
+        # Trả về trang profile và truyền dữ liệu người dùng
+        return render_template('profile.html', user=user, student = student)
 
 
 # post website
@@ -184,15 +205,55 @@ def post():
 # dang code 
 @app.route('/home/profile/update_profile', methods=['GET', 'POST'])
 def update_profile():
-    # if request.method == 'POST':
+    cur = mysql.connection.cursor()
+    user_id = session['user_id']
 
-    #     pass
-    # # Kết nối đến cơ sở dữ liệu
-    # cur = mysql.connection.cursor()
+    if request.method == 'POST':
+        # Nhận thông tin từ form
+        name = request.form['name']
+        email = request.form['email']
+        phone = request.form['phone']
+        date_of_birth = request.form['date_of_birth']
 
-    # cur.execute("SELECT * FROM users WHERE id = 1")
+        # Cập nhật thông tin người dùng
+        cur.execute("""
+            UPDATE users 
+            SET name = %s, email = %s
+            WHERE user_id = %s
+        """, (name, email,  user_id))
+        
+        if session['role'] == 'student':
+            cur.execute("""
+                UPDATE student
+                SET phone_student = %s, date_of_birth_student = %s
+                WHERE  user_id = %s
+            """, (phone, date_of_birth,  user_id))
 
-    return render_template('update_profile.html')
+        if session['role'] == 'tutor':
+            cur.execute("""
+                UPDATE tutor
+                SET phone_tutor = %s, date_of_birth_tutor = %s
+                WHERE  user_id = %s
+            """, (phone, date_of_birth,  user_id))
+        
+        # Lưu thay đổi
+        mysql.connection.commit()
+
+        # Đóng kết nối
+        cur.close()
+
+        # Chuyển hướng về trang profile sau khi cập nhật
+        return redirect(url_for('profile'))
+
+    elif request.method == 'GET':
+        # Truy vấn thông tin người dùng hiện tại
+        cur.execute("SELECT * FROM users WHERE user_id = %s", (user_id,))
+        user = cur.fetchone()
+
+        # Đóng kết nối
+        cur.close()
+
+        return render_template('update_profile.html', user=user)
 
 if __name__ == '__main__':
     app.run('0.0.0.0', '5000', debug=True)
