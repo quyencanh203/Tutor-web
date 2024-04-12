@@ -11,6 +11,7 @@ app.config["MYSQL_PORT"] = 3306
 app.config["MYSQL_USER"] = "root"
 app.config["MYSQL_PASSWORD"] = ""
 app.config["MYSQL_DB"] = "db_tutor"
+
 app.config["SECRET_KEY"] = 'secret_key'
 
 mysql = MySQL(app)
@@ -56,6 +57,7 @@ def login():
     return render_template('login.html')
 
 @app.route('/registerS', methods=['GET', 'POST'])
+@app.route('/registerS', methods=['GET', 'POST'])
 def registerS():
     if request.method == 'POST':
         name = request.form['name']
@@ -69,8 +71,14 @@ def registerS():
         cur = mysql.connection.cursor()
 
         try:
-            # Execute SQL query
+            # Execute SQL query to insert user data
             cur.execute("INSERT INTO users (name, email, password, sex, role) VALUES (%s, %s, %s, %s, %s)", (name, email, hashed_password, sex, role))
+            
+            # Get the ID of the inserted user
+            user_id = cur.lastrowid
+
+            # Execute SQL query to insert student data
+            cur.execute("INSERT INTO student (user_id) VALUES (%s)", (user_id,))
             
             # Commit the transaction
             mysql.connection.commit()
@@ -89,6 +97,7 @@ def registerS():
 
     return render_template('registerS.html')
 
+
 @app.route('/logout')
 def logout():
     session['loggedin'] = False 
@@ -104,16 +113,24 @@ def registerT():
         name = request.form['name']
         email = request.form['email']
         sex = request.form['sex']
-        role = request.form['role']
         password = request.form['password'].encode('utf-8')
         hashed_password = bcrypt.hashpw(password, bcrypt.gensalt()).decode('utf-8')
+        phone_tutor = request.form['phone_tutor']
+        date_of_birth_tutor = request.form['date_of_birth_tutor']
+        education = request.form['education']
 
         # Create cursor
         cur = mysql.connection.cursor()
 
         try:
-            # Execute SQL query
-            cur.execute("INSERT INTO users (name, email, password, sex, role) VALUES (%s, %s, %s, %s, %s)", (name, email, hashed_password, sex, role))
+            # Execute SQL query to insert user data
+            cur.execute("INSERT INTO users (name, email, password, sex, role) VALUES (%s, %s, %s, %s, 'tutor')", (name, email, hashed_password, sex))
+            
+            # Get the ID of the inserted user
+            user_id = cur.lastrowid
+
+            # Execute SQL query to insert tutor data
+            cur.execute("INSERT INTO tutor (user_id, phone_tutor, date_of_birth_tutor, education) VALUES (%s, %s, %s, %s)", (user_id, phone_tutor, date_of_birth_tutor, education))
             
             # Commit the transaction
             mysql.connection.commit()
@@ -132,7 +149,6 @@ def registerT():
 
     return render_template('registerT.html')
 
-# chua sua xong
 @app.route('/home/profile')
 def profile():
     # # Kết nối đến cơ sở dữ liệu
@@ -154,13 +170,14 @@ def profile():
 @app.route('/home/post',methods=['GET', 'POST'])
 def post():
     if request.method == 'POST':
-        subject = request.form['subject']
         class_student = request.form['class_student']
+        subject = request.form['subject']
+        address = request.form['address']
         booking_date = datetime.now()
         price = request.form['price']
-        describe_request = request.form['describe_request']
+        description = request.form['description']
         cursor = mysql.connection.cursor()
-        cursor.execute('INSERT INTO booking (subject, class_student, booking_date, status_booking, price, describe_request) VALUES (%s, %s, %s, %s, %s, %s)', (subject, class_student, booking_date, 'Pending', price, describe_request))
+        cursor.execute('INSERT INTO classes (class_student, subject, address, status, description, booking_date, price) VALUES (%s, %s ,%s, %s, %s, %s, %s)', (class_student, subject, address, 'Chưa có gia sư', description,booking_date, price))
         mysql.connection.commit()
         cursor.close()
     return render_template('post.html')
