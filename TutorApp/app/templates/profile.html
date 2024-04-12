@@ -2,26 +2,29 @@
 
 {% block content %}
 
-    <div>
-
-        <h1>Profile</h1>
-        <form action="" method="post">
-            <div class="form-group">
-                <label>Name:</label>
-                <input type="text" required>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-4 offset-md-4">
+            <div class="card">
+                <img src="https://via.placeholder.com/150" class="card-img-top" alt="Avatar">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Nguyễn Văn A</h5>
+                    <p class="card-text">Người dùng từ 2020</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><strong>Email:</strong> nguyenvana@email.com</li>
+                    <li class="list-group-item"><strong>Điện thoại:</strong> 0123 456 789</li>
+                    <li class="list-group-item"><strong>Địa chỉ:</strong> 123 Đường ABC, Quận XYZ, TP HCM</li>
+                </ul>
+                <div class="card-body">
+                    <a href="{{url_for('update_profile')}}" class="btn btn-primary btn-block">Chỉnh sửa thông tin</a>
+                </div>
             </div>
-            
-            <div class="form-group">
-                <label>Email:</label>
-                <input type="email" required>
-            </div>
-            
-            <div class="form-group">
-                <label>Password:</label>
-                <input type="password"required>
-            </div>
-        </form>
-
+        </div>
     </div>
+</div>
+
+<!-- Bootstrap JS and Popper.js -->
+
 
 {% endblock %}

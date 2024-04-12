@@ -10,7 +10,7 @@ app.config["MYSQL_HOST"] = "localhost"
 app.config["MYSQL_PORT"] = 3306 
 app.config["MYSQL_USER"] = "root"
 app.config["MYSQL_PASSWORD"] = ""
-app.config["MYSQL_DB"] = "database2"
+app.config["MYSQL_DB"] = "db_tutor"
 app.config["SECRET_KEY"] = 'secret_key'
 
 mysql = MySQL(app)
@@ -132,8 +132,21 @@ def registerT():
 
     return render_template('registerT.html')
 
+# chua sua xong
 @app.route('/home/profile')
 def profile():
+    # # Kết nối đến cơ sở dữ liệu
+    # cur = mysql.connection.cursor()
+
+    # # Truy vấn dữ liệu từ bảng người dùng
+    # cur.execute("SELECT * FROM users WHERE id = 1")  # Giả sử id của người dùng là 1
+    # user = cur.fetchone()
+
+    # # Đóng kết nối
+    # cur.close()
+    # cur.close()
+
+    # Trả về trang profile và truyền dữ liệu người dùng
     return render_template('profile.html')
 
 
@@ -151,7 +164,18 @@ def post():
         mysql.connection.commit()
         cursor.close()
     return render_template('post.html')
+# dang code 
+@app.route('/home/profile/update_profile', methods=['GET', 'POST'])
+def update_profile():
+    # if request.method == 'POST':
 
+    #     pass
+    # # Kết nối đến cơ sở dữ liệu
+    # cur = mysql.connection.cursor()
+
+    # cur.execute("SELECT * FROM users WHERE id = 1")
+
+    return render_template('update_profile.html')
 
 if __name__ == '__main__':
     app.run('0.0.0.0', '5000', debug=True)
