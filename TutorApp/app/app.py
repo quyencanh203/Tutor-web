@@ -115,7 +115,7 @@ def registerT():
         password = request.form['password'].encode('utf-8')
         hashed_password = bcrypt.hashpw(password, bcrypt.gensalt()).decode('utf-8')
         phone_tutor = request.form['phone_tutor']
-        year_of_birth_tutor = request.form['year_of_birth_tutor']
+        date_of_birth_tutor = request.form['date_of_birth_tutor']
         education = request.form['education']
 
         # Create cursor
@@ -129,7 +129,7 @@ def registerT():
             user_id = cur.lastrowid
 
             # Execute SQL query to insert tutor data
-            cur.execute("INSERT INTO tutor (user_id, phone_tutor, year_of_birth_tutor, education) VALUES (%s, %s, %s, %s)", (user_id, phone_tutor, year_of_birth_tutor, education))
+            cur.execute("INSERT INTO tutor (user_id, phone_tutor, date_of_birth_tutor, education) VALUES (%s, %s, %s, %s)", (user_id, phone_tutor, date_of_birth_tutor, education))
             
             # Commit the transaction
             mysql.connection.commit()
@@ -163,7 +163,7 @@ def post():
         price = request.form['price']
         description = request.form['description']
         cursor = mysql.connection.cursor()
-        cursor.execute('INSERT INTO classes (class_student, subject, address, status, Description, booking_date, price) VALUES (%s, %s ,%s, %s, %s, %s, %s)', (class_student, subject, address, 'Chưa có gia sư', description,booking_date, price))
+        cursor.execute('INSERT INTO classes (class_student, subject, address, status, description, booking_date, price) VALUES (%s, %s ,%s, %s, %s, %s, %s)', (class_student, subject, address, 'Chưa có gia sư', description,booking_date, price))
         mysql.connection.commit()
         cursor.close()
     return render_template('post.html')
