@@ -1,9 +1,63 @@
-.box{
-    background-color: red;
-    min-height: 50px;
-    margin-top: 20px;
+body {
+    color: rebeccapurple;
+    background-color: lightblue;
+    height: 100vh;
 }
-.navbar-logo {
-    max-height: 60px; /* Đặt chiều cao tối đa cho logo */
-    width: auto; /* Đảm bảo chiều rộng tự động điều chỉnh theo tỷ lệ */
+
+.container {
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 15px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    width: 60%;
+    margin-top: 50px;
+}
+
+body {
+    color: rebeccapurple;
+    background-color: lightblue;
+}
+
+.navbar {
+    background-color: #343a40; /* Màu nền cho navbar */
+}
+
+.navbar-brand {
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.navbar-toggler-icon {
+    background-color: white;
+}
+
+.navbar-nav .nav-link {
+    color: white;
+    margin-right: 10px;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #ffc107; /* Màu khi hover */
+}
+
+.form-inline .form-control {
+    width: 300px; /* Độ rộng của ô tìm kiếm */
+}
+
+.btn-outline-light {
+    border-color: white;
+    color: white;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.btn-outline-light:hover {
+    background-color: #ffc107; /* Màu khi hover */
+    border-color: #ffc107; /* Biên khi hover */
+}
+
+.alert {
+    margin-top: 20px;
 }

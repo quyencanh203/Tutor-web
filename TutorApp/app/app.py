@@ -21,7 +21,7 @@ def home():
     # check loggedin 
     if not session.get('loggedin'):
         return redirect(url_for('login'))
-    return render_template('index.html')
+    return render_template('blog/index.html')
 
 # class 
 @app.route('/Class')
@@ -52,11 +52,10 @@ def login():
            return redirect(url_for('home'))
         else:
             flash('Incorrect email or password', category = 'danger')
-            return render_template('login.html')
+            return render_template('auth/login.html')
 
-    return render_template('login.html')
+    return render_template('auth/login.html')
 
-@app.route('/registerS', methods=['GET', 'POST'])
 @app.route('/registerS', methods=['GET', 'POST'])
 def registerS():
     if request.method == 'POST':
@@ -95,7 +94,7 @@ def registerS():
             cur.close()
             return redirect(url_for('registerS'))
 
-    return render_template('registerS.html')
+    return render_template('auth/registerS.html')
 
 
 @app.route('/logout')
@@ -147,7 +146,7 @@ def registerT():
             cur.close()
             return redirect(url_for('registerT'))
 
-    return render_template('registerT.html')
+    return render_template('auth/registerT.html')
 
 # profile 
 @app.route('/home/profile')
@@ -184,7 +183,7 @@ def profile():
         print(user)
 
         # Trả về trang profile và truyền dữ liệu người dùng
-        return render_template('profile.html', user=user, student = student)
+        return render_template('blog/profile.html', user=user, student = student)
 
 
 # post website
@@ -201,7 +200,7 @@ def post():
         cursor.execute('INSERT INTO classes (class_student, subject, address, status, description, booking_date, price) VALUES (%s, %s ,%s, %s, %s, %s, %s)', (class_student, subject, address, 'Chưa có gia sư', description,booking_date, price))
         mysql.connection.commit()
         cursor.close()
-    return render_template('post.html')
+    return render_template('blog/post.html')
 # dang code 
 @app.route('/home/profile/update_profile', methods=['GET', 'POST'])
 def update_profile():
@@ -253,7 +252,8 @@ def update_profile():
         # Đóng kết nối
         cur.close()
 
-        return render_template('update_profile.html', user=user)
+        return render_template('blog/update_profile.html', user=user)
 
 if __name__ == '__main__':
     app.run('0.0.0.0', '5000', debug=True)
+
