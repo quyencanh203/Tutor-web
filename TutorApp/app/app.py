@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, session, f
 from flask_mysqldb import MySQL
 import bcrypt
 from datetime import datetime
+import MySQLdb.cursors
 
 app = Flask(__name__)
 
@@ -25,7 +26,14 @@ def home():
 # class 
 @app.route('/Class')
 def Class():
-    return render_template('class.html')
+   # Truy vấn cơ sở dữ liệu để lấy danh sách các lớp học mới
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute("SELECT * FROM classes WHERE status = 'Chưa có gia sư'")  # Lấy danh sách các lớp học chưa có gia sư
+    new_classes = cursor.fetchall()
+    cursor.close()
+
+    # Hiển thị thông tin của lớp học mới lên trang của gia sư
+    return render_template('class.html', new_classes=new_classes)
 
 @app.route('/', methods=['GET', 'POST'])
 def login():
