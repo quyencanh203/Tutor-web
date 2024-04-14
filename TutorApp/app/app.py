@@ -10,8 +10,8 @@ app = Flask(__name__)
 app.config["MYSQL_HOST"] = "localhost"
 app.config["MYSQL_PORT"] = 3306 
 app.config["MYSQL_USER"] = "root"
-app.config["MYSQL_PASSWORD"] = "quan342004q"
-app.config["MYSQL_DB"] = "dataq"
+app.config["MYSQL_PASSWORD"] = ""
+app.config["MYSQL_DB"] = "db_tutor"
 
 app.config["SECRET_KEY"] = 'secret_key'
 
@@ -197,7 +197,22 @@ def profile():
 # post website
 @app.route('/home/post',methods=['GET', 'POST'])
 def post():
+    # ket no database
+    cur = mysql.connection.cursor()
+
+    # lay user_id nguoi dang dang nhap 
+    user_id = session['user_id']
+    
+    # Truy vấn dữ liệu từ bảng người dùng
+    cur.execute("SELECT * FROM student WHERE user_id = %s", (user_id,))
+
+    # luu thong tin vao user 
+    student = cur.fetchone()
+
+    cur.close()
+
     if request.method == 'POST':
+        student_id = student[0]
         class_student = request.form['class_student']
         subject = request.form['subject']
         address = request.form['address']
@@ -205,7 +220,7 @@ def post():
         price = request.form['price']
         description = request.form['description']
         cursor = mysql.connection.cursor()
-        cursor.execute('INSERT INTO classes (class_student, subject, address, status, description, booking_date, price) VALUES (%s, %s ,%s, %s, %s, %s, %s)', (class_student, subject, address, 'Chưa có gia sư', description,booking_date, price))
+        cursor.execute('INSERT INTO classes (student_id, class_student, subject, address, status, description, booking_date, price) VALUES (%s, %s, %s ,%s, %s, %s, %s, %s)', (student_id, class_student, subject, address, 'Chưa có gia sư', description,booking_date, price))
         mysql.connection.commit()
         cursor.close()
     return render_template('post.html')
