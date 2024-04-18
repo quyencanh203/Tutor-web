@@ -1,0 +1,26 @@
+body {
+    color: rebeccapurple;
+    background-color: lightblue;
+    height: 100vh;
+}
+
+.container mt-5 .container {
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 15px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    width: 60%;
+    margin-top: 50px;
+}
+
+#home {
+    background-image: url(../img/hero.jpg);
+    height: 90vh;
+    width: 100%;
+    background-size: cover;
+    background-position: top 25% right 0;
+    padding: 0 80px;
+    display: flex;
+    flex-direction: column;
+}

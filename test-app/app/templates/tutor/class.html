@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!-- As a heading -->
+
+<div class="container">
+    <h2>Các lớp học mới</h2>
+    <!-- Bạn có thể giữ bộ lọc nếu muốn -->
+    <div class="row">
+        <!-- Danh sách các lớp học mới -->
+        {% for class in new_classes %}
+        <div class="col-lg-3">
+            <div class="myclass-item text-small">
+                <div class="myclass-item-head d-flex">
+                    <span class="font-weight-bold">{{ class.class_student }}</span>
+                </div>
+                <div class="myclass-item-body">
+                    <p class="p-icon mb-2">
+                        <icon class="icon-myclass icon-book text-muted text-small"></icon>
+                        <b>{{ class.subject }}</b>
+                    </p>
+                    <p class="p-icon mb-2">
+                        <icon class="icon-map-marker text-muted text-small"></icon>
+                        {{ class.address }}
+                    </p>
+                    <p class="p-icon mb-2">
+                        <icon class="icon-dollar text-muted text-small"></icon>
+                        {{ class.price }}/buổi, 3 buổi/tuần
+                    </p>
+                    <p class="p-icon mb-2">
+                        <icon class="icon-myclass icon-bookmark text-muted"></icon>
+                        Yêu cầu: {{ class.description }}
+                    </p>
+                    <div class="text-right mt-3">
+                        <a href="/lop-gia-su/{{ class.id }}" class="btn btn-success" rel="nofollow">Xem chi tiết</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}
