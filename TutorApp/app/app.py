@@ -61,7 +61,7 @@ def login():
         else:
             flash('Incorrect email or password', category = 'danger')
             return render_template('auth/login.html')
-
+        
     return render_template('auth/login.html')
 
 @app.route('/registerS', methods=['GET', 'POST'])
