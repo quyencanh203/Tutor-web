@@ -18,6 +18,7 @@ Miêu tả chi tiết về dự án, bao gồm mục tiêu, chức năng, và c�
 ## Yêu cầu
 
 Liệt kê các yêu cầu cần thiết để cài đặt và chạy dự án.
+https://www.bingmapsportal.com/Application#
 
 ## Cài đặt
 

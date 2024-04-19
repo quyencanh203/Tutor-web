@@ -45,5 +45,10 @@ def home():
         return redirect(url_for('login'))
     return render_template('common/index.html')
 
+# Route để hiển thị thông tin chi tiết của một lớp học
+@app.route('/home/post/detail/<int:class_id>', methods=['GET', 'POST'])
+def detail(class_id):
+    return Tutor.detail(class_id=class_id)
+
 if __name__ == '__main__':
     app.run('0.0.0.0', '5000', debug=True)

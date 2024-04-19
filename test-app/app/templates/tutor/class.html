@@ -3,14 +3,16 @@
 {% block content %}
 
 <!-- As a heading -->
-
 <div class="container">
-    <h2>Các lớp học mới</h2>
+    <div class="head__text">
+        <h2>danh sách yêu cầu lớp học</h2>
+    </div>
+    
     <!-- Bạn có thể giữ bộ lọc nếu muốn -->
     <div class="row">
         <!-- Danh sách các lớp học mới -->
         {% for class in new_classes %}
-        <div class="col-lg-3">
+        <div class="col-lg-4">
             <div class="myclass-item text-small">
                 <div class="myclass-item-head d-flex">
                     <span class="font-weight-bold">{{ class.class_student }}</span>
@@ -33,8 +35,9 @@
                         Yêu cầu: {{ class.description }}
                     </p>
                     <div class="text-right mt-3">
-                        <a href="/lop-gia-su/{{ class.id }}" class="btn btn-success" rel="nofollow">Xem chi tiết</a>
+                        <a href="/home/post/detail/{{ class.class_id }}" class="btn btn-success" rel="nofollow">Xem chi tiết</a>
                     </div>
+                      
                 </div>
             </div>
         </div>

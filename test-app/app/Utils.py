@@ -125,3 +125,7 @@ class Utils:
             cur.close()
 
             return render_template('common/update_profile.html', user=user)
+
+@staticmethod
+def Bing_Map() :
+    return render_template('map.html')
