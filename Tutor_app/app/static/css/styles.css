@@ -1,11 +1,10 @@
 body {
-    color: rebeccapurple;
-    background-color: lightblue;
+    color: rgb(104, 51, 153);
+    background-color: rgb(165, 165, 165);
     height: 100vh;
 }
 
 .container mt-5 .container {
-    background-color: white;
     border: 1px solid #ccc;
     padding: 15px;
     border-radius: 20px;
@@ -60,4 +59,9 @@ body {
     width: 100%;
     height: 400px; /* Chiều cao của bản đồ */
     border-radius: 8px; /* Bo góc */
+}
+
+.imghero {
+    width: 50%;
+    height: 50%;
 }
