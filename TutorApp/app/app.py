@@ -22,7 +22,7 @@ def home():
     # check loggedin 
     if not session.get('loggedin'):
         return redirect(url_for('login'))
-    return render_template('index.html')
+    return render_template('common/index.html')
 
 # class 
 @app.route('/Class')
@@ -34,7 +34,7 @@ def Class():
     cursor.close()
 
     # Hiển thị thông tin của lớp học mới lên trang của gia sư
-    return render_template('class.html', new_classes=new_classes)
+    return render_template('tutor/class.html', new_classes=new_classes)
 
 @app.route('/', methods=['GET', 'POST'])
 def login():
@@ -60,9 +60,9 @@ def login():
            return redirect(url_for('home'))
         else:
             flash('Incorrect email or password', category = 'danger')
-            return render_template('login.html')
-
-    return render_template('login.html')
+            return render_template('auth/login.html')
+        
+    return render_template('auth/login.html')
 
 @app.route('/registerS', methods=['GET', 'POST'])
 def registerS():
@@ -103,7 +103,7 @@ def registerS():
             cur.close()
             return redirect(url_for('registerS'))
 
-    return render_template('registerS.html')
+    return render_template('auth/registerS.html')
 
 
 @app.route('/logout')
@@ -155,7 +155,7 @@ def registerT():
             cur.close()
             return redirect(url_for('registerT'))
 
-    return render_template('registerT.html')
+    return render_template('auth/registerT.html')
 
 # profile 
 @app.route('/home/profile')
@@ -178,7 +178,7 @@ def profile():
         cur.close()
         
         # Trả về trang profile và truyền dữ liệu người dùng
-        return render_template('profile.html', user=user, tutor = tutor)
+        return render_template('common/profile.html', user=user, tutor = tutor)
     elif session['role'] == 'student':
         # Truy vấn dữ liệu từ bảng tutor
         cur.execute("SELECT * FROM student WHERE user_id = %s", (user_id,))
@@ -192,13 +192,28 @@ def profile():
         print(user)
 
         # Trả về trang profile và truyền dữ liệu người dùng
-        return render_template('profile.html', user=user, student = student)
+        return render_template('common/profile.html', user=user, student = student)
 
 
 # post website
 @app.route('/home/post',methods=['GET', 'POST'])
 def post():
+    # ket no database
+    cur = mysql.connection.cursor()
+
+    # lay user_id nguoi dang dang nhap 
+    user_id = session['user_id']
+    
+    # Truy vấn dữ liệu từ bảng người dùng
+    cur.execute("SELECT * FROM student WHERE user_id = %s", (user_id,))
+
+    # luu thong tin vao user 
+    student = cur.fetchone()
+
+    cur.close()
+
     if request.method == 'POST':
+        student_id = student[0]
         class_student = request.form['class_student']
         subject = request.form['subject']
         address = request.form['address']
@@ -206,10 +221,10 @@ def post():
         price = request.form['price']
         description = request.form['description']
         cursor = mysql.connection.cursor()
-        cursor.execute('INSERT INTO classes (class_student, subject, address, status, description, booking_date, price) VALUES (%s, %s ,%s, %s, %s, %s, %s)', (class_student, subject, address, 'Chưa có gia sư', description,booking_date, price))
+        cursor.execute('INSERT INTO classes (student_id, class_student, subject, address, status, description, booking_date, price) VALUES (%s, %s, %s ,%s, %s, %s, %s, %s)', (student_id, class_student, subject, address, 'Chưa có gia sư', description,booking_date, price))
         mysql.connection.commit()
         cursor.close()
-    return render_template('post.html')
+    return render_template('student/post.html')
 # Route để hiển thị thông tin chi tiết của một lớp học
 @app.route('/home/post/detail/<int:class_id>', methods=['GET', 'POST'])
 def detail(class_id):
@@ -223,7 +238,7 @@ def detail(class_id):
     class_info = cursor.fetchone()
     cursor.close()
     # Trả về trang detail.html với thông tin lớp học được truy vấn từ cơ sở dữ liệu
-    return render_template('detail.html', class_info=class_info)
+    return render_template('tutor/detail.html', class_info=class_info)
 
 @app.route('/home/post/detail/<int:class_id>/register', methods=['POST'])
 def register_class(class_id):
@@ -256,7 +271,6 @@ def register_class(class_id):
         print(e)  # In ra lỗi để debug
     
     return redirect(url_for('Class'))
-
 
 # dang code 
 @app.route('/home/profile/update_profile', methods=['GET', 'POST'])
@@ -308,7 +322,7 @@ def update_profile():
         # Đóng kết nối
         cur.close()
 
-        return render_template('update_profile.html', user=user)
+        return render_template('common/update_profile.html', user=user)
 
 if __name__ == '__main__':
     app.run('0.0.0.0', '5000', debug=True)
