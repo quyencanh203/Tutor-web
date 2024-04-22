@@ -1,33 +1,39 @@
-# TutorApp
+# Dự án Phần mềm Kỹ thuật Web App
 
-Mô tả ngắn gọn về dự án.
+## Giới thiệu
 
-## Nội dung
-
-1. [Thông tin dự án](#thông-tin-dự-án)
-2. [Yêu cầu](#yêu-cầu)
-3. [Cài đặt](#cài-đặt)
-4. [Sử dụng](#sử-dụng)
-5. [Đóng góp](#đóng-góp)
-6. [Giấy phép](#giấy-phép)
-
-## Thông tin dự án
-
-Miêu tả chi tiết về dự án, bao gồm mục tiêu, chức năng, và các tính năng chính.
-
-## Yêu cầu
-
-Liệt kê các yêu cầu cần thiết để cài đặt và chạy dự án.
+Đây là dự án Phần mềm Kỹ thuật Web App được phát triển bởi quyencanh203. Dự án này tập trung vào việc xây dựng một ứng dụng web hiện đại và linh hoạt.
 
 ## Cài đặt
 
-Hướng dẫn cài đặt dự án và thiết lập môi trường phát triển.
-- pip install virtualenv 
-- virtualenv venv
-- venv/Scripts/activate
-- pip install -r requirements.txt 
+Để cài đặt và chạy dự án này, hãy làm theo các bước sau:
 
-```bash
-git clone https://github.com/your-username/your-project.git
-cd your-project
-npm install
+1. Clone repo này từ GitHub.
+2. Chạy lệnh `pip install -r requirements.txt` để cài đặt các gói phụ thuộc.
+3. Chạy lệnh `flask run` để khởi động ứng dụng.
+
+## Công nghệ sử dụng
+
+- Flask 3.0.2
+- Flask-MySQLdb 2.0.0
+- Werkzeug 3.0.2
+- Bcrypt 3.2.0
+
+## Tính năng
+
+- Đăng nhập/đăng ký người dùng
+- Quản lý thông tin cá nhân
+- Tìm kiếm và xem thông tin sản phẩm
+- Thêm sản phẩm vào giỏ hàng và thanh toán
+
+## Đóng góp
+
+Nếu bạn muốn đóng góp cho dự án này, hãy tạo một Pull Request. Tất cả các đóng góp đều được hoan nghênh!
+
+## Giấy phép
+
+Dự án này được phân phối dưới Giấy phép MIT. Xem tệp `LICENSE` để biết thêm thông tin chi tiết.
+
+## Liên hệ
+
+Nếu bạn có bất kỳ câu hỏi hoặc góp ý nào, hãy tạo một Issue trên GitHub.
