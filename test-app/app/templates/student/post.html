@@ -1,28 +1,29 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
-<div class="container">
-    <h2>Đăng ký lớp học</h2>
+<div class="container mt-5">
+    <div class="text-center mb-4">
+        <h2>Đăng ký lớp học</h2>
+    </div>
     <form method="post">
-        <div class="form-group">
-            <label for="lop">Lớp:</label>
+        <div class="mb-3">
+            <label for="lop" class="form-label">Lớp:</label>
             <input type="text" class="form-control" id="lop" name="class_student" required>
         </div>
-        <div class="form-group">
-            <label for="mon_hoc">Môn học:</label>
+        <div class="mb-3">
+            <label for="mon_hoc" class="form-label">Môn học:</label>
             <input type="text" class="form-control" id="mon_hoc" name="subject" required>
         </div>
-        <div class="form-group">
-            <label for="dia_chi">Địa chỉ:</label>
+        <div class="mb-3">
+            <label for="dia_chi" class="form-label">Địa chỉ:</label>
             <input type="text" class="form-control" id="dia_chi" name="address" required>
         </div>
-        <div class="form-group">
-            <label for="yeu_cau">Mô tả yêu cầu:</label>
+        <div class="mb-3">
+            <label for="yeu_cau" class="form-label">Mô tả yêu cầu:</label>
             <textarea class="form-control" id="yeu_cau" name="description" rows="3" required></textarea>
         </div>
-        <div class="form-group">
-            <label for="gia">Giá:</label>
+        <div class="mb-3">
+            <label for="gia" class="form-label">Giá:</label>
             <input type="text" class="form-control" id="gia" name="price" required>
         </div>
         <button type="submit" class="btn btn-primary">Đăng ký</button>

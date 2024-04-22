@@ -9,71 +9,74 @@
     <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}"> -->
 </head>
 <body>
-    <!-- navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">tutor website</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <!-- navbar items  -->
-          <ul class="navbar-nav mr-auto">
-            <!-- logic navbar -->
-            {% if session['loggedin'] == True %}
-               {% if session['role'] == 'student'%} 
-                  <li class="nav-item">
-                   <a class="nav-link" href="{{url_for('home')}}">Home</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="{{url_for('profile')}}">My profile</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="{{url_for('post')}}" >Create post</a>
-                  </li>
-                  <li class="nav-item">
-                    <form class="form-inline">
-                      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                      <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
-                    </form>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="{{url_for('logout')}}">Logout</a>
-                  </li>
-               {% else %}
-                  <li class="nav-item">
-                   <a class="nav-link" href="{{url_for('home')}}">Home</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="{{url_for('Class')}}">Class</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="{{url_for('profile')}}">My profile</a>
-                  </li>
-                  <li class="nav-item">
-                    <form class="form-inline">
-                      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                      <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
-                    </form>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="{{url_for('logout')}}">Logout</a>
-                  </li>
-               {% endif %}
-           
-            {% else %}
-            <li class="nav-item">
-              <a class="nav-link" href="{{url_for('login')}}">Login</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{{url_for('registerS')}}">Register as a student</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{{url_for('registerT')}}" >Register as a tutor</a>
-            </li>
-            {% endif %}
-          </ul>
-        </div>
-      </nav>
+  <div>
+        <!-- navbar -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+          <a class="navbar-brand" href="#">tutor website</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <!-- navbar items  -->
+            <ul class="navbar-nav mr-auto">
+              <!-- logic navbar -->
+              {% if session['loggedin'] == True %}
+                 {% if session['role'] == 'student'%} 
+                    <li class="nav-item">
+                     <a class="nav-link" href="{{url_for('home')}}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="{{url_for('profile')}}">My profile</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="{{url_for('post')}}" >Create post</a>
+                    </li>
+                    <li class="nav-item">
+                      <form class="form-inline">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+                      </form>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="{{url_for('logout')}}">Logout</a>
+                    </li>
+                 {% else %}
+                    <li class="nav-item">
+                     <a class="nav-link" href="{{url_for('home')}}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="{{url_for('Class')}}">Class</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="{{url_for('profile')}}">My profile</a>
+                    </li>
+                    <li class="nav-item">
+                      <form class="form-inline">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+                      </form>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="{{url_for('logout')}}">Logout</a>
+                    </li>
+                 {% endif %}
+             
+              {% else %}
+              <li class="nav-item">
+                <a class="nav-link" href="{{url_for('login')}}">Login</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{url_for('registerS')}}">Register as a student</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{url_for('registerT')}}" >Register as a tutor</a>
+              </li>
+              {% endif %}
+            </ul>
+          </div>
+        </nav>
+  </div>
+
       {% with messages = get_flashed_messages(with_categories=true) %}
       {% if messages %}
           {% for cat, mess in messages %}

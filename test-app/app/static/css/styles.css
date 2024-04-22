@@ -14,20 +14,6 @@ body {
     margin-top: 50px;
 }
 
-#home {
-    background-image: url(../img/hero.jpg);
-    height: 90vh;
-    width: 100%;
-    background-size: cover;
-    background-position: top 25% right 0;
-    padding: 0 80px;
-    display: flex;
-    flex-direction: column;
-}
-
-
-/* css for detail.html  */
-
 /* css for detail.html */
 
 .head__text {
