@@ -56,3 +56,4 @@ class Tutor(User, Utils):
             print(e)  # In ra lỗi để debug
     
         return redirect(url_for('Class'))
+

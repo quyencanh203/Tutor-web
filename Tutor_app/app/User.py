@@ -32,5 +32,6 @@ class User:
         session.pop('loggedin', None)
         session.pop('user_id', None)
         session.pop('name', None)
+        session.clear()
         flash('Logged out successfully!', category='success')
         return redirect(url_for('login'))

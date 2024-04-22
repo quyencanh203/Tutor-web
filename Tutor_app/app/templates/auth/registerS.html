@@ -1,39 +1,52 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="container">
-    <h2>Register as a Student</h2>
+<div class="container mt-5">
+    <div class="text-center mb-4">
+        <h2>Register as a Student</h2>
+    </div>
+>>>>>>> dev
     <form action="{{ url_for('registerS') }}" method="post">
         {% if message %}
             <div class="alert alert-warning">{{ message }}</div>
         {% endif %}
-        <div class="form-group">
-            <label for="name">Name:</label>
+        <div class="mb-3">
+            <label for="name" class="form-label">Name:</label>
             <input type="text" class="form-control" id="name" name="name" placeholder="Enter name" required>
         </div>
-        <div class="form-group">
-            <label for="email">Email:</label>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email:</label>
             <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" required>
         </div>
-        <div class="form-group">
-            <label for="password">Password:</label>
+        <div class="mb-3">
+            <label for="password" class="form-label">Password:</label>
             <input type="password" class="form-control" id="password" name="password" placeholder="Enter password" required>
         </div>
-        <div class="form-group">
+        <div class="mb-3">
             <label for="phone_student">Phone student:</label>
             <input type="text" class="form-control" id="phone_student" name="phone_student" placeholder="Enter phone student" required>
         </div>
-        <div class="form-group">
+        <div class="mb-3">
             <label for="date_of_birth_student">Date of birth:</label>
             <input type="text" class="form-control" id="date_of_birth_student" name="date_of_birth_student" placeholder="Enter date of birth" required>
         </div>
-        <input type="radio" name="sex" value="male">
-        <label for="">male</label><br>
-        <input type="radio" name="sex" value="female">
-        <label for="">female</label><br>
+        <div class="mb-3">
+            <label class="form-label">Gender:</label><br>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="sex" id="male" value="male">
+                <label class="form-check-label" for="male">Male</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="sex" id="female" value="female">
+                <label class="form-check-label" for="female">Female</label>
+            </div>
+        </div>
         <input type="hidden" name="role" value="student">
         <button type="submit" class="btn btn-primary">Register</button>
-        <p class="bottom">Already have an account? <a class="bottom" href="{{ url_for('login') }}">Login here</a></p>
+        <div class="mt-3">
+            <p class="mb-0">Already have an account? <a href="{{ url_for('login') }}">Login here</a></p>
+        </div>
     </form>
 </div>
 {% endblock %}
+>>>>>>> dev
