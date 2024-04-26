@@ -18,6 +18,7 @@
           <ul class="navbar-nav mr-auto">
             <!-- logic navbar -->
             {% if session['loggedin'] == True %}
+            <!-- neu la hoc sinh dang nhap -->
                {% if session['role'] == 'student'%} 
                   <li class="nav-item">
                    <a class="nav-link" href="{{url_for('home')}}">Home</a>
@@ -37,6 +38,7 @@
                   <li class="nav-item">
                     <a class="nav-link" href="{{url_for('logout')}}">Logout</a>
                   </li>
+                  <!-- neu la gia su dang nhap -->
                {% else %}
                   <li class="nav-item">
                    <a class="nav-link" href="{{url_for('home')}}">Home</a>
@@ -48,6 +50,9 @@
                     <a class="nav-link" href="{{url_for('profile')}}">My profile</a>
                   </li>
                   <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('my_class')}}" >My class</a>
+                  </li>
+                  <li class="nav-item">
                     <form class="form-inline">
                       <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                       <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
@@ -57,7 +62,7 @@
                     <a class="nav-link" href="{{url_for('logout')}}">Logout</a>
                   </li>
                {% endif %}
-           
+           <!-- neu chua dang nhap -->
             {% else %}
             <li class="nav-item">
               <a class="nav-link" href="{{url_for('login')}}">Login</a>

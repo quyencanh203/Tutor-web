@@ -54,5 +54,10 @@ def detail(class_id):
 def register_class(class_id):
     return Tutor.register_class(class_id=class_id)
 
+@app.route('/home/my_class', methods=['GET', 'POST'])
+def my_class():
+    return Tutor.my_class()
+    
+
 if __name__ == '__main__':
     app.run('0.0.0.0', '5000', debug=True)
