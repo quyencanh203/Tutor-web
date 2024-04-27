@@ -88,11 +88,35 @@ class Tutor(User, Utils):
             cur.execute("SELECT * FROM classes WHERE tutor_id = %s", (tutor_id,))
             classes_db = cur.fetchall()
             print(classes_db)
-            
             cur.close()
-    
-            return render_template('tutor/my_class.html', classes_db=classes_db)
-    
+
+            # connection db
+            cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+            # get user_id
+            user_id = session['user_id']
+            print(user_id)
+            cur.execute("SELECT * FROM tutor WHERE user_id = %s", (user_id,))
+            tutor_db = cur.fetchall()
+            tutor_id = tutor_db[0]['tutor_id']
+            print(type(tutor_id))
+            cur.execute("SELECT * FROM requirement WHERE tutor_id = %s", (tutor_id,))
+            requirement_db = cur.fetchall()
+            print(requirement_db)
+            class_ids = []
+            for req in requirement_db:
+                class_ids.append(req['class_id'])
+            # class_id = requirement_db[0]['class_id']
+            print(class_ids)
+            classes_db2 = ()
+            for class_id in class_ids:
+                cur.execute("SELECT * FROM classes WHERE class_id = %s", (class_id,))
+                class_db = cur.fetchall()
+                classes_db2= classes_db2 + class_db 
+                print(classes_db2)
+            cur.close()
+            
+            return render_template('tutor/my_class.html', classes_db=classes_db, classes_db2=classes_db2)
+            
         except Exception as e:
             flash('An error occurred')
             print('An error occurred')
@@ -101,5 +125,16 @@ class Tutor(User, Utils):
                 cur.close()
             return redirect(url_for('home'))
     
-            
-    
+    # @staticmethod    
+    # def request_class():
+    #     # connection db
+    #     cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    #     # get user_id
+    #     user_id = session['user_id']
+    #     cur.execute("SELECT * FROM tutor WHERE user_id = %s", (user_id,))
+    #     tutor_db = cur.fetchall()
+    #     tutor_id = tutor_db[0]['tutor_id']
+    #     cur.execute("SELECT * FROM requirement WHERE tutor_id = %s", (tutor_id),)
+    #     requirement_db = cur.fetchall()
+    #     cur.close()
+    #     return render_template('tutor/my_class.html', requirement_db=requirement_db)
