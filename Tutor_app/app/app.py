@@ -54,5 +54,13 @@ def detail(class_id):
 def register_class(class_id):
     return Tutor.register_class(class_id=class_id)
 
+@app.route('/my_post', methods=['GET'])
+def my_post():
+    return Student.my_post()
+
+@app.route('/list_tutor/<int:class_id>')
+def list_tutor(class_id):
+    return Student.list_tutor(class_id=class_id)
+
 if __name__ == '__main__':
     app.run('0.0.0.0', '5000', debug=True)
