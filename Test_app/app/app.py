@@ -10,8 +10,8 @@ app = Flask(__name__)
 app.config["MYSQL_HOST"] = "localhost"
 app.config["MYSQL_PORT"] = 3306 
 app.config["MYSQL_USER"] = "root"
-app.config["MYSQL_PASSWORD"] = ""
-app.config["MYSQL_DB"] = "db_tutor"
+app.config["MYSQL_PASSWORD"] = "quan342004q"
+app.config["MYSQL_DB"] = "dataq"
 
 app.config["SECRET_KEY"] = 'secret_key'
 
@@ -61,7 +61,7 @@ def login():
         else:
             flash('Incorrect email or password', category = 'danger')
             return render_template('auth/login.html')
-
+        
     return render_template('auth/login.html')
 
 @app.route('/registerS', methods=['GET', 'POST'])
@@ -73,7 +73,8 @@ def registerS():
         role = request.form['role']
         password = request.form['password'].encode('utf-8')
         hashed_password = bcrypt.hashpw(password, bcrypt.gensalt()).decode('utf-8')
-
+        phone_student = request.form['phone_student']
+        date_of_birth_student = request.form['date_of_birth_student']
         # Create cursor
         cur = mysql.connection.cursor()
 
@@ -85,7 +86,7 @@ def registerS():
             user_id = cur.lastrowid
 
             # Execute SQL query to insert student data
-            cur.execute("INSERT INTO student (user_id) VALUES (%s)", (user_id,))
+            cur.execute("INSERT INTO student (user_id, phone_student, date_of_birth_student) VALUES (%s, %s, %s)", (user_id,phone_student, date_of_birth_student))
             
             # Commit the transaction
             mysql.connection.commit()
@@ -224,6 +225,53 @@ def post():
         mysql.connection.commit()
         cursor.close()
     return render_template('student/post.html')
+# Route để hiển thị thông tin chi tiết của một lớp học
+@app.route('/home/post/detail/<int:class_id>', methods=['GET', 'POST'])
+def detail(class_id):
+    # Kết nối đến cơ sở dữ liệu
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute("SELECT * FROM classes WHERE class_id = %s", (class_id,)) 
+    
+
+    # Thực hiện truy vấn SQL để lấy thông tin lớp học từ cơ sở dữ liệu
+   
+    class_info = cursor.fetchone()
+    cursor.close()
+    # Trả về trang detail.html với thông tin lớp học được truy vấn từ cơ sở dữ liệu
+    return render_template('tutor/detail.html', class_info=class_info)
+
+@app.route('/home/post/detail/<int:class_id>/register', methods=['POST'])
+def register_class(class_id):
+    # Kiểm tra xem người dùng đã đăng nhập chưa
+    if not session.get('loggedin'):
+        flash('Bạn phải đăng nhập để đăng kí nhận lớp.', 'danger')
+        return redirect(url_for('login'))
+    
+    # Lấy user_id từ session
+    user_id = session.get('user_id')
+
+    # Thực hiện truy vấn SQL để lấy tutor_id từ bảng tutor
+    try:
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute("SELECT tutor_id FROM tutor WHERE user_id = %s", (user_id,))
+        tutor = cursor.fetchone()
+        if tutor:
+            tutor_id = tutor['tutor_id']
+        else:
+            flash('Bạn phải là gia sư mới có thể đăng kí nhận lớp.', 'danger')
+            return redirect(url_for('Class'))
+        
+        # Thêm thông tin vào bảng requirement
+        cursor.execute("INSERT INTO requirement (tutor_id, class_id) VALUES (%s, %s)", (tutor_id, class_id))
+        mysql.connection.commit()
+        cursor.close()
+        flash('Đăng kí nhận lớp thành công!', 'success')
+    except Exception as e:
+        flash('Đã xảy ra lỗi khi đăng kí nhận lớp. Vui lòng thử lại.', 'danger')
+        print(e)  # In ra lỗi để debug
+    
+    return redirect(url_for('Class'))
+
 # dang code 
 @app.route('/home/profile/update_profile', methods=['GET', 'POST'])
 def update_profile():
@@ -236,7 +284,6 @@ def update_profile():
         email = request.form['email']
         phone = request.form['phone']
         date_of_birth = request.form['date_of_birth']
-
         # Cập nhật thông tin người dùng
         cur.execute("""
             UPDATE users 

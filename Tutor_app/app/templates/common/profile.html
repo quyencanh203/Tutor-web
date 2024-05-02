@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-4 offset-md-4">
+            <div class="card ">
+                <img src="https://via.placeholder.com/150" class="card-img-top" alt="Avatar">
+                <div class="card-body text-center">
+                    <h5 class="card-title">{{ user[1] }}</h5>
+                    <p class="card-text"> Thông tin cơ bản </p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><strong>Email:</strong> {{ user[2] }}</li>
+                    {% if user[5] == 'tutor'%}
+                    <li class="list-group-item"><strong>Điện thoại:</strong> {{ tutor[2] }}</li>
+                    <li class="list-group-item"><strong>Địa chỉ:</strong> {{ tutor[3] }}</li>
+                    {% elif user[5] == 'student' %}
+                    <li class="list-group-item"><strong>Điện thoại:</strong> {{ student[2] }}</li>
+                    <li class="list-group-item"><strong>Địa chỉ:</strong> {{ student[3] }}</li>
+                    {% endif %}
+                </ul>
+                <div class="card-body">
+                    <a href="{{ url_for('update_profile') }}" class="btn btn-primary btn-block">Chỉnh sửa thông tin</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS and Popper.js -->
+
+{% endblock %}

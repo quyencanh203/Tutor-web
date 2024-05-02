@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <div class="text-center mb-4">
+        <h2 class="text-uppercase">Danh sách yêu cầu lớp học</h2>
+    </div>
+    <!-- Bạn có thể giữ bộ lọc nếu muốn -->
+    <div class="row">
+        <!-- Danh sách các lớp học mới -->
+        {% for class in new_classes %}
+
+        <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title font-weight-bold">{{ class.class_student }}</h5>
+                    <ul class="list-unstyled">
+                        <li class="d-flex align-items-center mb-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-book text-muted mr-2" viewBox="0 0 16 16">
+                                <path d="M5.5 1a.5.5 0 0 1 .5.5V5h-1V1.5a.5.5 0 0 1 .5-.5zm5.5 0a.5.5 0 0 0-.5.5V5h1V1.5a.5.5 0 0 0-.5-.5zm-5.21-.5A2.5 2.5 0 0 1 8 0a2.5 2.5 0 0 1 2.71 1.5A2.5 2.5 0 0 1 13 4.21V15.5a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5V4.543a1.5 1.5 0 0 0-1.146-1.456L7.854 3.29a.5.5 0 0 1-.708 0L5.146 2.087A1.5 1.5 0 0 0 4 3.543V15.5a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5V4.21A2.5 2.5 0 0 1 4.29 1z"/>
+                            </svg>
+                            <span>{{ class.subject }}</span>
+                        </li>
+                        <li class="d-flex align-items-center mb-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt text-muted mr-2" viewBox="0 0 16 16">
+                                <path d="M8 0a7.53 7.53 0 0 1 4.95 1.86c.6.48 1.04 1.12 1.41 1.86A20.2 20.2 0 0 1 14 8.54c.01.21.01.43.01.65 0 3.05-.62 5.18-1.56 6.96-.54 1.02-1.22 1.98-1.98 2.86a31.82 31.82 0 0 1-2.9 2.8c-.58.44-1.2.86-1.84 1.21-.3.16-.62.3-.95.4-.3.1-.63.14-.95.14-.32 0-.65-.04-.95-.14-.33-.1-.65-.24-.95-.4-.64-.35-1.26-.77-1.84-1.21a31.82 31.82 0 0 1-2.9-2.8c-.76-.88-1.44-1.84-1.98-2.86-.94-1.78-1.56-3.91-1.56-6.96 0-.22 0-.44.01-.65a20.2 20.2 0 0 1 .63-4.82c.37-.74.81-1.38 1.41-1.86A7.53 7.53 0 0 1 8 0zm0 1.5a6.04 6.04 0 0 0-3.82 1.3c-.47.37-.85.84-1.15 1.4C3.52 4.6 3.27 6.45 3.06 8c-.01.2-.02.42-.02.65 0 2.7.54 4.6 1.36 6.16.45.86 1.02 1.67 1.64 2.45a30.82 30.82 0 0 0 2.8 3.08c.56.42 1.16.81 1.79 1.16.3.16.61.28.92.37.3.1.61.14.93.14.32 0 .63-.04.93-.14.31-.09.62-.21.92-.37.63-.35 1.23-.74 1.79-1.16a30.82 30.82 0 0 0 2.8-3.08c.62-.78 1.19-1.59 1.64-2.45.82-1.56 1.36-3.46 1.36-6.16 0-.22-.01-.45-.02-.65-.21-1.55-.46-3.4-.77-5.6-.3-.56-.68-1.03-1.15-1.4A6.04 6.04 0 0 0 8 1.5zM8 4a4 4 0 1 1 0 8 4 4 0 0 1 0-8z"/>
+                            </svg>
+                            <span>{{ class.address }}</span>
+                        </li>
+                        <li class="d-flex align-items-center mb-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cash text-muted mr-2" viewBox="0 0 16 16">
+                                <path d="M2 5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v1a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5zm0 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H2z"/>
+                                <path d="M2 9.086a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v1a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-1zm0 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-1a1 1 0 0 0-1-1H2z"/>
+                            </svg>
+                            <span>{{ class.price }}/buổi, 3 buổi/tuần</span>
+                        </li>
+                        <li class="d-flex align-items-start">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmark text-muted mr-2" viewBox="0 0 16 16">
+                                <path d="M4.5 1a.5.5 0 0 1 .5.5V4h2.793a.5.5 0 0 1 .354.146l3 3a.5.5 0 0 1 .146.354V14.5a.5.5 0 0 1-.5.5H4.5a.5.5 0 0 1-.5-.5V1.5a.5.5 0 0 1 .5-.5z"/>
+                            </svg>
+                            <span>Yêu cầu: {{ class.description }}</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-footer text-right">
+                    <a href="/home/post/detail/{{ class.class_id }}" class="btn btn-success btn-sm" rel="nofollow">Xem chi tiết</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

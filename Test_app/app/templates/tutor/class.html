@@ -3,7 +3,6 @@
 {% block content %}
 
 <!-- As a heading -->
-
 <div class="container">
     <h2>Các lớp học mới</h2>
     <!-- Bạn có thể giữ bộ lọc nếu muốn -->
@@ -33,8 +32,9 @@
                         Yêu cầu: {{ class.description }}
                     </p>
                     <div class="text-right mt-3">
-                        <a href="/lop-gia-su/{{ class.id }}" class="btn btn-success" rel="nofollow">Xem chi tiết</a>
+                        <a href="/home/post/detail/{{ class.class_id }}" class="btn btn-success" rel="nofollow">Xem chi tiết</a>
                     </div>
+                      
                 </div>
             </div>
         </div>
