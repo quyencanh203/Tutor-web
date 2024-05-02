@@ -123,18 +123,4 @@ class Tutor(User, Utils):
             print(e)
             if 'cur' in locals():
                 cur.close()
-            return redirect(url_for('home'))
-    
-    # @staticmethod    
-    # def request_class():
-    #     # connection db
-    #     cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    #     # get user_id
-    #     user_id = session['user_id']
-    #     cur.execute("SELECT * FROM tutor WHERE user_id = %s", (user_id,))
-    #     tutor_db = cur.fetchall()
-    #     tutor_id = tutor_db[0]['tutor_id']
-    #     cur.execute("SELECT * FROM requirement WHERE tutor_id = %s", (tutor_id),)
-    #     requirement_db = cur.fetchall()
-    #     cur.close()
-    #     return render_template('tutor/my_class.html', requirement_db=requirement_db)
+            return redirect(url_for('home'))            
