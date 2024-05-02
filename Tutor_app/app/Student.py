@@ -76,6 +76,22 @@ class Student(User, Utils):
         cursor.close()
 
         # Trả về dữ liệu cho template để hiển thị
-        return render_template('student/list_tutor.html', tutors_info=tutors_info)
+        return render_template('student/list_tutor.html', tutors_info=tutors_info, class_id=class_id)
+    
+    @staticmethod
+    def select_tutor(class_id, tutor_id):
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        try:
+            # Cập nhật thông tin vào bảng classes
+            cursor.execute("UPDATE classes SET tutor_id = %s, status = 'Đã có gia sư' WHERE class_id = %s", (tutor_id, class_id))
+            mysql.connection.commit()
+            flash('Bạn đã chọn gia sư thành công!', 'success')
+        except Exception as e:
+            print("Error:", e)
+            mysql.connection.rollback()
+            flash('Đã xảy ra lỗi, không thể chọn gia sư!', 'error')
+        finally:
+            cursor.close()
+        return redirect(url_for('list_tutor', class_id=class_id))
 
 

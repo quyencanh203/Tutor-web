@@ -377,9 +377,41 @@ def list_tutor(class_id):
         cursor.close()
 
         # Trả về dữ liệu cho template để hiển thị
-        return render_template('student/list_tutor.html', tutors_info=tutors_info)
+        return render_template('student/list_tutor.html', tutors_info=tutors_info, class_id=class_id)
 
-    
+@app.route('/select_tutor/<int:class_id>/<int:tutor_id>', methods=['POST'])
+def select_tutor(class_id, tutor_id):
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    try:
+        # Cập nhật thông tin vào bảng classes
+        cursor.execute("UPDATE classes SET tutor_id = %s, status = 'Đã có gia sư' WHERE class_id = %s", (tutor_id, class_id))
+        mysql.connection.commit()
+        flash('Bạn đã chọn gia sư thành công!', 'success')
+    except Exception as e:
+        print("Error:", e)
+        mysql.connection.rollback()
+        flash('Đã xảy ra lỗi, không thể chọn gia sư!', 'error')
+    finally:
+        cursor.close()
+    return redirect(url_for('list_tutor', class_id=class_id))
+
+
+'''
+@app.route('/select_tutor/<int:class_id>/<int:tutor_id>', methods=['POST'])
+def select_tutor(class_id, tutor_id):
+    if request.method == 'POST':
+        # Cập nhật bảng classes với tutor_id được chọn
+        cursor = mysql.connection.cursor()
+        cursor.execute("UPDATE classes SET tutor_id = %s WHERE class_id = %s", (tutor_id, class_id))
+        mysql.connection.commit()
+        cursor.close()
+        flash('Gia sư đã được chọn thành công', 'success')
+        return redirect(url_for('view_class', class_id=class_id))
+    else:
+        flash('Lỗi trong quá trình chọn gia sư', 'error')
+        return redirect(url_for('list_tutor', class_id=class_id))
+
+'''
 
 if __name__ == '__main__':
     app.run('0.0.0.0', '5000', debug=True)

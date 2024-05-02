@@ -62,5 +62,10 @@ def my_post():
 def list_tutor(class_id):
     return Student.list_tutor(class_id=class_id)
 
+@app.route('/select_tutor/<int:class_id>/<int:tutor_id>', methods=['POST'])
+def select_tutor(class_id, tutor_id):
+    return Student.select_tutor(class_id=class_id, tutor_id= tutor_id)
+
+
 if __name__ == '__main__':
     app.run('0.0.0.0', '5000', debug=True)
