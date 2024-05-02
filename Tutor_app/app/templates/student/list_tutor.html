@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>List of Tutors</h1>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Tutor ID</th>
+                        <th>Name</th>
+                        <th>Sex</th>
+                        <th>Phone</th>
+                        <th>Education</th>
+                        <th>Options</th> <!-- Thêm cột mới -->
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for tutor_info in tutors_info %}
+                    <tr>
+                        <td>{{ tutor_info.tutor_id }}</td>
+                        <td>{{ tutor_info.name }}</td>
+                        <td>{{ tutor_info.sex }}</td>
+                        <td>{{ tutor_info.phone_tutor }}</td>
+                        <td>{{ tutor_info.education }}</td>
+                        <td> <!-- Thêm cột mới -->
+                            <form action="{{ url_for('select_tutor', class_id=class_id, tutor_id=tutor_info.tutor_id) }}" method="POST">
+                                <button type="submit" class="btn btn-primary">Chọn</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
