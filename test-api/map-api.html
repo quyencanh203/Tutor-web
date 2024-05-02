@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bing Maps API Example with Search</title>
+    <script type='text/javascript' src='http://www.bing.com/api/maps/mapcontrol?callback=loadMap&key=AlVCmlao0aRTzbkUhlFkw93FEhYNcJGACqHM75KIBAEgrFs2lFMp5v_O7WqLbTTW' async defer></script>
+    <script type='text/javascript'>
+        var map;
+
+        function loadMap() {
+            var mapOptions = {
+                credentials: 'AlVCmlao0aRTzbkUhlFkw93FEhYNcJGACqHM75KIBAEgrFs2lFMp5v_O7WqLbTTW',
+                mapTypeId: Microsoft.Maps.MapTypeId.road,
+                center: new Microsoft.Maps.Location(21.0278, 105.8342), // Tọa độ trung tâm
+                zoom: 12
+            };
+
+            map = new Microsoft.Maps.Map('#myMap', mapOptions);
+            Microsoft.Maps.Events.addHandler(map, 'click', searchLocation);
+        }
+
+        function searchLocation(e) {
+            var point = new Microsoft.Maps.Point(e.getX(), e.getY());
+            var loc = e.target.tryPixelToLocation(point);
+            var searchManager = new Microsoft.Maps.Search.SearchManager(map);
+
+            var requestOptions = {
+                bounds: map.getBounds(),
+                where: loc.latitude + ', ' + loc.longitude,
+                callback: function (answer, userData) {
+                    map.setView({ bounds: answer.results[0].bestView });
+                    var pin = new Microsoft.Maps.Pushpin(loc, {
+                        title: answer.results[0].name,
+                        subTitle: answer.results[0].address.formattedAddress,
+                        text: '1'
+                    });
+                    map.entities.push(pin);
+                }
+            };
+
+            searchManager.geocode(requestOptions);
+        }
+    </script>
+    <style>
+        #myMap {
+            position: relative;
+            width: 600px;
+            height: 400px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Bing Maps API Example with Search</h1>
+    <div>
+        <label for="searchInput">Nhập địa chỉ:</label>
+        <input type="text" id="searchInput" placeholder="Nhập địa chỉ cần tìm">
+        <button onclick="searchAddress()">Tìm kiếm</button>
+    </div>
+    <div id="myMap"></div>
+    <script>
+        function searchAddress() {
+            var searchQuery = document.getElementById('searchInput').value;
+            var searchManager = new Microsoft.Maps.Search.SearchManager(map);
+            var requestOptions = {
+                bounds: map.getBounds(),
+                where: searchQuery,
+                callback: function (answer, userData) {
+                    if (answer && answer.results && answer.results.length > 0) {
+                        var loc = answer.results[0].location;
+                        map.setView({ center: loc });
+                        var pin = new Microsoft.Maps.Pushpin(loc, {
+                            title: answer.results[0].name,
+                            subTitle: answer.results[0].address.formattedAddress,
+                            text: '1'
+                        });
+                        map.entities.push(pin);
+                    } else {
+                        alert('Không tìm thấy địa chỉ');
+                    }
+                }
+            };
+            searchManager.geocode(requestOptions);
+        }
+    </script>
+</body>
+</html>
