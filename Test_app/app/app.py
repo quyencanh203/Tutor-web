@@ -3,6 +3,7 @@ from flask_mysqldb import MySQL
 import bcrypt
 from datetime import datetime
 import MySQLdb.cursors
+import os
 
 app = Flask(__name__)
 
@@ -43,26 +44,31 @@ def login():
         email = request.form['email']
         password = request.form['password'].encode('utf-8')
 
-        # creating a connection cursor 
+        # Tạo một connection cursor
         cur = mysql.connection.cursor()
         cur.execute("SELECT * FROM users WHERE email = %s", (email,))
         user = cur.fetchone()
         cur.close()
 
-        if user and bcrypt.checkpw(password, user[3].encode('utf-8')):  # Truy cập mật khẩu thông qua chỉ số
+        if user and bcrypt.checkpw(password, user[3].encode('utf-8')):  
+            # Kiểm tra mật khẩu và vai trò của người dùng
+            session['loggedin'] = True
+            session['user_id'] = user[0]
+            session['name'] = user[1]
+            session['role'] = user[5]
+            flash('Logged in successfully!', category='success')
 
-           # set session variable
-           session['loggedin'] = True
-           session['user_id'] = user[0]  # Truy cập id thông qua chỉ số
-           session['name'] = user[1]  # Truy cập tên thông qua chỉ số
-           session['role'] = user[5]
-           flash('Logged in successfully!', category = 'success')
-           return redirect(url_for('home'))
+            if session['role'] == 'admin':  
+                # Nếu người dùng là admin, chuyển hướng đến trang admin.html
+                return redirect(url_for('admin'))
+
+            return redirect(url_for('home'))  # Chuyển hướng đến trang home cho các người dùng khác
         else:
-            flash('Incorrect email or password', category = 'danger')
+            flash('Incorrect email or password', category='danger')
             return render_template('auth/login.html')
-        
+
     return render_template('auth/login.html')
+
 
 @app.route('/registerS', methods=['GET', 'POST'])
 def registerS():
@@ -75,6 +81,11 @@ def registerS():
         hashed_password = bcrypt.hashpw(password, bcrypt.gensalt()).decode('utf-8')
         phone_student = request.form['phone_student']
         date_of_birth_student = request.form['date_of_birth_student']
+        
+        get_root_path = app.root_path + "\\static"
+        # thêm thư mục vào users
+        user_folder = os.path.join(get_root_path, 'images_user', 'students', email)
+        os.makedirs(user_folder, exist_ok=True)
         # Create cursor
         cur = mysql.connection.cursor()
 
@@ -84,6 +95,7 @@ def registerS():
             
             # Get the ID of the inserted user
             user_id = cur.lastrowid
+
 
             # Execute SQL query to insert student data
             cur.execute("INSERT INTO student (user_id, phone_student, date_of_birth_student) VALUES (%s, %s, %s)", (user_id,phone_student, date_of_birth_student))
@@ -105,16 +117,6 @@ def registerS():
 
     return render_template('auth/registerS.html')
 
-
-@app.route('/logout')
-def logout():
-    session['loggedin'] = False 
-    session.pop('loggedin', None)
-    session.pop('id', None)
-    session.pop('name', None)
-    flash('Logged out successfully!', category = 'success')
-    return redirect(url_for('login'))
-
 @app.route('/registerT', methods=['GET', 'POST'])
 def registerT():
     if request.method == 'POST':
@@ -126,7 +128,11 @@ def registerT():
         phone_tutor = request.form['phone_tutor']
         date_of_birth_tutor = request.form['date_of_birth_tutor']
         education = request.form['education']
-
+        
+        get_root_path = app.root_path + "\\static"
+        # thêm thư mục vào users
+        user_folder = os.path.join(get_root_path, 'images_user', 'tutors', email)
+        os.makedirs(user_folder, exist_ok=True)
         # Create cursor
         cur = mysql.connection.cursor()
 
@@ -156,6 +162,17 @@ def registerT():
             return redirect(url_for('registerT'))
 
     return render_template('auth/registerT.html')
+
+
+@app.route('/logout')
+def logout():
+    session['loggedin'] = False 
+    session.pop('loggedin', None)
+    session.pop('id', None)
+    session.pop('name', None)
+    flash('Logged out successfully!', category = 'success')
+    return redirect(url_for('login'))
+
 
 # profile 
 @app.route('/home/profile')
