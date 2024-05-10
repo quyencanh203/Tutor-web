@@ -20,7 +20,10 @@
           <ul class="navbar-nav mr-auto">
             <!-- logic navbar -->
             {% if session['loggedin'] == True %}
-               {% if session['role'] == 'student'%} 
+              {% if session['role'] == 'admin'%}
+                return redirect(url_for('admin'));
+              {% endif %}
+              {% if session['role'] == 'student'%} 
                   <li class="nav-item">
                    <a class="nav-link" href="{{url_for('home')}}">Home</a>
                   </li>
