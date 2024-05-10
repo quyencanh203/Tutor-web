@@ -300,6 +300,10 @@ def profile():
         # Trả về trang profile và truyền dữ liệu người dùng
         return render_template('common/profile.html', user=user, student = student)
 
+@app.route("/profile/payment")
+def payment():
+    return render_template("tutor/payment.html")
+
 # post website
 @app.route('/home/post',methods=['GET', 'POST'])
 def post():

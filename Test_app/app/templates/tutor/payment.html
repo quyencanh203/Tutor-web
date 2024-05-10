@@ -1,3 +1,4 @@
+{% block content %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,13 +7,23 @@
   <title>Thanh Toán</title>
   <!-- Bootstrap CSS -->
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    .img-custom {
+      max-width: 100%;
+      max-height: 300px; /* Điều chỉnh chiều cao tối đa của hình ảnh tại đây */
+      width: auto;
+      height: auto;
+    }
+  </style>
 </head>
+
 <body>
   <div class="container">
     <div class="row">
       <div class="col-md-6 offset-md-3 text-center">
         <h2>Thanh Toán</h2>
-        <img src="/test/static/bank.jpg" class="img-fluid" alt="Mã QR">
+        <img src="{{ url_for('static', filename='bank.jpg')}}" class="img-fluid img-custom" alt="Mã QR">
         <form>
           <div class="form-group">
             <label for="amount">Số Tiền Chuyển:</label>
@@ -37,3 +48,4 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
+{% endblock %}
