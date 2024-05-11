@@ -137,6 +137,10 @@ class Utils:
 
             return render_template('common/update_profile.html', user=user)
 
-@staticmethod
-def Bing_Map() :
-    return render_template('map.html')
+    @staticmethod
+    def Bing_Map() :
+        return render_template('map.html')
+
+    @staticmethod
+    def backgroup_app():
+        return render_template('backgroup_app.html')

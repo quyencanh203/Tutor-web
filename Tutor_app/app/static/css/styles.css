@@ -1,17 +1,4 @@
-body {
-    color: rgb(104, 51, 153);
-    background-color: rgb(165, 165, 165);
-    height: 100vh;
-}
 
-.container mt-5 .container {
-    border: 1px solid #ccc;
-    padding: 15px;
-    border-radius: 20px;
-    margin-bottom: 20px;
-    width: 60%;
-    margin-top: 50px;
-}
 
 /* css for detail.html */
 
@@ -64,4 +51,13 @@ body {
 .imghero {
     width: 50%;
     height: 50%;
+}
+
+/* css cho phân hiện thông báo */
+.alert {
+    position: fixed; /* Đặt vị trí của thông báo là cố định */
+    top: 20px; /* Khoảng cách từ trên xuống */
+    right: 20px; /* Khoảng cách từ phải sang */
+    z-index: 9999; /* Đảm bảo thông báo luôn hiển thị phía trên các phần tử khác */
+    width: 300px; /* Chiều rộng của thông báo */
 }

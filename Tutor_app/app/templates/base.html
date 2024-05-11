@@ -8,12 +8,16 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
 </head>
 
 <body>
+
   <!-- navbar -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">tutor website</a>
+    <a class="navbar-brand" href="#">
+      <img src="../static/img/hero.jpg" alt="Avatar Logo" style="width:40px;" class="rounded-pill"> 
+    </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
       aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -26,16 +30,16 @@
         <!-- neu la hoc sinh dang nhap -->
         {% if session['role'] == 'student'%}
         <li class="nav-item">
-          <a class="nav-link" href="{{url_for('home')}}">Home</a>
+          <a class="nav-link" href="{{url_for('home')}}">Trang chủ</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{url_for('profile')}}">My profile</a>
+          <a class="nav-link" href="{{url_for('profile')}}">Thông tin cá nhân</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{url_for('post')}}">Create post</a>
+          <a class="nav-link" href="{{url_for('post')}}">Tạo bài đăng</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{url_for('my_post')}}">My post</a>
+          <a class="nav-link" href="{{url_for('my_post')}}">Bài đăng của tôi</a>
         </li>
         <li class="nav-item">
           <form class="form-inline">
@@ -51,26 +55,28 @@
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="#">Action</a></li>
             <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><hr class="dropdown-divider"></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
             <li><a class="dropdown-item" href="#">Something else here</a></li>
           </ul>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{url_for('logout')}}">Logout</a>
+          <a class="nav-link" href="{{url_for('logout')}}">Đăng xuất</a>
         </li>
         <!-- neu la gia su dang nhap -->
         {% else %}
         <li class="nav-item">
-          <a class="nav-link" href="{{url_for('home')}}">Home</a>
+          <a class="nav-link" href="{{url_for('home')}}">Trang chủ</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{url_for('Class')}}">Class</a>
+          <a class="nav-link" href="{{url_for('Class')}}">Nhận lớp</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{url_for('profile')}}">My profile</a>
+          <a class="nav-link" href="{{url_for('profile')}}">Thông tin cá nhân</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{url_for('my_class')}}">My class</a>
+          <a class="nav-link" href="{{url_for('my_class')}}">các lớp của tôi</a>
         </li>
         <li class="nav-item">
           <form class="form-inline">
@@ -85,29 +91,37 @@
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="#">Action</a></li>
             <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><hr class="dropdown-divider"></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
             <li><a class="dropdown-item" href="#">Something else here</a></li>
           </ul>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{url_for('logout')}}">Logout</a>
+          <a class="nav-link" href="{{url_for('logout')}}">Đăng xuất</a>
         </li>
         {% endif %}
         <!-- neu chua dang nhap -->
         {% else %}
         <li class="nav-item">
-          <a class="nav-link" href="{{url_for('login')}}">Login</a>
+          <a class="nav-link" href="{{url_for('backgroup_app')}}">Trang chủ</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{url_for('registerS')}}">Register as a student</a>
+          <a class="nav-link" href="{{url_for('login')}}">Đăng nhập</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{url_for('registerT')}}">Register as a tutor</a>
+          <a class="nav-link" href="{{url_for('registerS')}}">Đăng kí tài khoản học sinh</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{url_for('registerT')}}">Đăng kí làm gia sư</a>
         </li>
         {% endif %}
       </ul>
     </div>
   </nav>
+
+  <!-- thong bao trong web -->
+<div>
   {% with messages = get_flashed_messages(with_categories=true) %}
   {% if messages %}
   {% for cat, mess in messages %}
@@ -129,6 +143,7 @@
   {% endfor %}
   {% endif %}
   {% endwith %}
+</div>
 
   <div>
     {% block content %}
@@ -136,7 +151,7 @@
   </div>
 
   <div id="footer">
-    {% block footer %}
+
     <!-- Footer Section -->
     <footer class="footer mt-5 bg-dark text-white pt-4 pb-4">
       <div class="container">
@@ -176,7 +191,6 @@
         </div>
       </div>
     </footer>
-    {% endblock %}
   </div>
 
   <script src="{{ url_for('static', filename='js/main.js')}}"></script>
@@ -184,7 +198,9 @@
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
 </body>
 
 </html>

@@ -34,4 +34,5 @@ class User:
         session.pop('name', None)
         session.clear()
         flash('Logged out successfully!', category='success')
-        return redirect(url_for('login'))
+        # return redirect(url_for('login'))
+        return render_template('backgroup_app.html')

@@ -1,0 +1,6 @@
+/* Trong tệp CSS của bạn */
+.content-background {
+    background-image: url('../img/backgroup_profile.jpg');
+    background-size: cover; /* Đảm bảo hình ảnh nền sẽ phủ toàn bộ khu vực */
+    background-position: center; /* Canh giữa hình ảnh nền */
+}

@@ -10,7 +10,7 @@
         <p><strong>Lớp:</strong> {{ class_info.class_student }}</p>
         <p><strong>Môn học:</strong> {{ class_info.subject }}</p>
         <p><strong>Địa chỉ:</strong> {{ class_info.address }}</p>
-        <p><strong>Giá:</strong> {{ class_info.price }}/buổi, 3 buổi/tuần</p>
+        <p><strong>Giá:</strong> {{ class_info.price }}/buổi, {{class_info.session_of_per_week}}/tuần</p>
         <p><strong>Mô tả:</strong> {{ class_info.description }}</p>
         <form action="{{ url_for('register_class', class_id=class_info.class_id) }}" method="post">
             <button class="btn btn-success" type="submit">Đăng kí nhận lớp</button>
