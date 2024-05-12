@@ -70,5 +70,9 @@ def select_tutor(class_id, tutor_id):
 def admin():
     return User.admin()
 
+@app.route("/profile/payment", methods=["GET", "POST"])
+def payment():
+    return Tutor.payment()
+
 if __name__ == '__main__':
     app.run('0.0.0.0', '5000', debug=True)

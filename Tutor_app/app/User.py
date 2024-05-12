@@ -78,11 +78,18 @@ class User:
                 # Truy vấn cơ sở dữ liệu để lấy thông tin của tất cả các gia sư từ bảng tutor và thông tin của họ từ bảng users
                 cur = mysql.connection.cursor()
                 cur.execute("""
-                    SELECT u.name, u.email, t.tutor_id, t.phone_tutor, t.date_of_birth_tutor, t.education, t.balance
-                    FROM users u
-                    INNER JOIN tutor t ON u.user_id = t.user_id
-                """)
+                            SELECT u.name, u.email, t.tutor_id, t.phone_tutor, t.date_of_birth_tutor, t.education, t.balance,
+                            GROUP_CONCAT(p.img_payment) AS img_payments
+                            FROM users u
+                            INNER JOIN tutor t ON u.user_id = t.user_id
+                            LEFT JOIN payment p ON t.tutor_id = p.tutor_id
+                            GROUP BY t.tutor_id
+                            """)
                 tutors_info = cur.fetchall()
+                
+                for i in tutors_info:
+                    print(type(i[7]))
+                    break
                 cur.close()
 
                 # Truyền thông tin của các gia sư vào template admin.html
