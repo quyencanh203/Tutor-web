@@ -13,12 +13,12 @@ Mô tả ngắn gọn về dự án.
 
 ## Thông tin dự án
 
-Miêu tả chi tiết về dự án, bao gồm mục tiêu, chức năng, và các tính năng chính.
+Miêu tả chi tiết về dự án
+Dự án lập trình web gia sư.Mục tiêu của web là để tạo ra một nơi để cho học sinh và gia sư có thể tương tác tạo ra các yêu cầu cho tìm kiếm gia sư. Chức năng chính của trang web là để cho học sinh tạo 1 yêu cầu tìm kiếm gia sư và gia sư sẽ vào vào đăng kí nhận lớp.
 
 ## Yêu cầu
 
 Liệt kê các yêu cầu cần thiết để cài đặt và chạy dự án.
-https://www.bingmapsportal.com/Application#
 
 ## Cài đặt
 
@@ -27,8 +27,6 @@ Hướng dẫn cài đặt dự án và thiết lập môi trường phát tri�
 - virtualenv venv
 - venv/Scripts/activate
 - pip install -r requirements.txt 
-
+- cd Tutor_app/app 
+- python app.py 
 ```bash
-git clone https://github.com/your-username/your-project.git
-cd your-project
-npm install
