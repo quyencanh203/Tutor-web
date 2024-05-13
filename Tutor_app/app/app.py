@@ -72,9 +72,19 @@ def list_tutor(class_id):
 def select_tutor(class_id, tutor_id):
     return Student.select_tutor(class_id=class_id, tutor_id= tutor_id)
 
+
 @app.route('/backgroup_app')
 def backgroup_app():
     return Utils.backgroup_app()
+
+@app.route('/admin', methods=['GET', 'POST'])
+def admin():
+    return User.admin()
+
+@app.route("/profile/payment", methods=["GET", "POST"])
+def payment():
+    return Tutor.payment()
+
 
 if __name__ == '__main__':
     app.run('0.0.0.0', '5000', debug=True)

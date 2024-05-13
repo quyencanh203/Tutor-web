@@ -1,9 +1,9 @@
-from flask import Flask, render_template, request, redirect, url_for, session, flash
+from flask import Flask, render_template, request, redirect, url_for, session, flash, jsonify
 from flask_mysqldb import MySQL
 import bcrypt
 from datetime import datetime
 import MySQLdb.cursors
-
+import os
 app = Flask(__name__)
 
 # Required
@@ -42,27 +42,124 @@ def login():
     if request.method == 'POST':
         email = request.form['email']
         password = request.form['password'].encode('utf-8')
-
-        # creating a connection cursor 
+        
+        # Tạo một connection cursor
         cur = mysql.connection.cursor()
         cur.execute("SELECT * FROM users WHERE email = %s", (email,))
         user = cur.fetchone()
         cur.close()
 
-        if user and bcrypt.checkpw(password, user[3].encode('utf-8')):  # Truy cập mật khẩu thông qua chỉ số
+        if user and bcrypt.checkpw(password, user[3].encode('utf-8')):  
+            # Kiểm tra mật khẩu và vai trò của người dùng
+            session['loggedin'] = True
+            session['user_id'] = user[0]
+            session['name'] = user[1]
+            session['role'] = user[5]
+            flash('Logged in successfully!', category='success')
 
-           # set session variable
-           session['loggedin'] = True
-           session['user_id'] = user[0]  # Truy cập id thông qua chỉ số
-           session['name'] = user[1]  # Truy cập tên thông qua chỉ số
-           session['role'] = user[5]
-           flash('Logged in successfully!', category = 'success')
-           return redirect(url_for('home'))
+            if session['role'] == 'admin':  
+                # Nếu người dùng là admin, chuyển hướng đến trang admin.html
+                return redirect(url_for('admin'))
+
+            return redirect(url_for('home'))  # Chuyển hướng đến trang home cho các người dùng khác
         else:
-            flash('Incorrect email or password', category = 'danger')
+            flash('Incorrect email or password', category='danger')
             return render_template('auth/login.html')
-        
+
     return render_template('auth/login.html')
+
+
+@app.route('/admin', methods=['GET', 'POST'])
+def admin():
+    if session['role'] == 'admin':
+        if request.method == 'POST':
+            # Lấy tutor_id và số tiền từ biểu mẫu gửi đi
+            tutor_id = request.form['tutor_id']
+            amount = request.form['amount']
+
+            # Xác nhận rằng tutor_id và amount là dữ liệu hợp lệ
+            try:
+                tutor_id = int(tutor_id)
+                amount = int(amount)
+            except ValueError:
+                flash('Dữ liệu không hợp lệ.', category='danger')
+                return redirect(url_for('admin'))
+
+            # Kiểm tra xem tutor_id có tồn tại trong cơ sở dữ liệu không
+            cur = mysql.connection.cursor()
+            cur.execute("SELECT tutor_id FROM tutor WHERE tutor_id = %s", (tutor_id,))
+            tutor = cur.fetchone()
+            cur.close()
+
+            if not tutor:
+                flash('Gia sư không tồn tại.', category='danger')
+                return redirect(url_for('admin'))
+
+            # Cập nhật số tiền trong tài khoản của gia sư
+            cur = mysql.connection.cursor()
+            cur.execute("UPDATE tutor SET balance = balance + %s WHERE tutor_id = %s", (amount, tutor_id))
+            mysql.connection.commit()
+            cur.close()
+
+            flash('Cộng tiền thành công.', category='success')
+            return redirect(url_for('admin'))
+
+        else:
+            # Truy vấn cơ sở dữ liệu để lấy thông tin của tất cả các gia sư từ bảng tutor và thông tin của họ từ bảng users
+            cur = mysql.connection.cursor()
+            cur.execute("""
+                        SELECT u.name, u.email, t.tutor_id, t.phone_tutor, t.date_of_birth_tutor, t.education, t.balance,
+                        GROUP_CONCAT(p.img_payment) AS img_payments
+                        FROM users u
+                        INNER JOIN tutor t ON u.user_id = t.user_id
+                        LEFT JOIN payment p ON t.tutor_id = p.tutor_id
+                        GROUP BY t.tutor_id
+                        """)
+            tutors_info = cur.fetchall()
+            
+            for i in tutors_info:
+                print(type(i[7]))
+                break
+            cur.close()
+
+            # Truyền thông tin của các gia sư vào template admin.html
+            return render_template('admin.html', tutors_info=tutors_info)
+    else:
+        flash('You do not have permission to access this page.', category='danger')
+        return redirect(url_for('login'))
+    
+    
+'''
+@app.route('/add_balance', methods=['POST'])
+def add_balance():
+    if request.method == 'POST':
+        tutor_id = request.form['tutor_id']
+        amount = int(request.form['amount'])
+        
+        try:
+            # Kết nối đến cơ sở dữ liệu
+            cursor = mysql.connection.cursor()
+            
+            # Truy vấn để lấy số dư hiện tại của gia sư
+            cursor.execute("SELECT balance FROM tutor WHERE tutor_id = %s", (tutor_id,))
+            current_balance = cursor.fetchone()[5]
+            
+            # Cộng số tiền mới vào số dư hiện tại
+            new_balance = current_balance + amount
+            
+            # Cập nhật số dư mới vào cơ sở dữ liệu
+            cursor.execute("UPDATE tutor SET balance = %s WHERE tutor_id = %s", (new_balance, tutor_id))
+            
+            # Commit thay đổi và đóng kết nối
+            mysql.connection.commit()
+            cursor.close()
+            
+            flash('Số tiền đã được cộng vào tài khoản của gia sư', 'success')
+            return redirect(url_for('admin'))  # Chuyển hướng về trang admin
+        except Exception as e:
+            flash('Đã xảy ra lỗi: ' + str(e), 'error')
+            return redirect(url_for('admin'))  # Chuyển hướng về trang admin
+'''
 
 @app.route('/registerS', methods=['GET', 'POST'])
 def registerS():
@@ -75,15 +172,20 @@ def registerS():
         hashed_password = bcrypt.hashpw(password, bcrypt.gensalt()).decode('utf-8')
         phone_student = request.form['phone_student']
         date_of_birth_student = request.form['date_of_birth_student']
+        
+        get_root_path = app.root_path + "\\static"
+        # thêm thư mục vào student
+        user_folder = os.path.join(get_root_path, 'images_user', 'students', email, 'avt')
+        os.makedirs(user_folder, exist_ok=True)
         # Create cursor
         cur = mysql.connection.cursor()
-
         try:
             # Execute SQL query to insert user data
             cur.execute("INSERT INTO users (name, email, password, sex, role) VALUES (%s, %s, %s, %s, %s)", (name, email, hashed_password, sex, role))
             
             # Get the ID of the inserted user
             user_id = cur.lastrowid
+
 
             # Execute SQL query to insert student data
             cur.execute("INSERT INTO student (user_id, phone_student, date_of_birth_student) VALUES (%s, %s, %s)", (user_id,phone_student, date_of_birth_student))
@@ -105,16 +207,6 @@ def registerS():
 
     return render_template('auth/registerS.html')
 
-
-@app.route('/logout')
-def logout():
-    session['loggedin'] = False 
-    session.pop('loggedin', None)
-    session.pop('id', None)
-    session.pop('name', None)
-    flash('Logged out successfully!', category = 'success')
-    return redirect(url_for('login'))
-
 @app.route('/registerT', methods=['GET', 'POST'])
 def registerT():
     if request.method == 'POST':
@@ -126,7 +218,15 @@ def registerT():
         phone_tutor = request.form['phone_tutor']
         date_of_birth_tutor = request.form['date_of_birth_tutor']
         education = request.form['education']
+        
+        get_root_path = app.root_path + "\\static"
+        # thêm thư mục vào tutor
+        avt_folder = os.path.join(get_root_path, 'images_user', 'tutors', email, 'avt')
+        payment_folder = os.path.join(get_root_path, 'images_user', 'tutors', email, 'payment')
 
+        # Tạo thư mục avt và payment
+        os.makedirs(avt_folder, exist_ok=True)
+        os.makedirs(payment_folder, exist_ok=True)
         # Create cursor
         cur = mysql.connection.cursor()
 
@@ -156,6 +256,17 @@ def registerT():
             return redirect(url_for('registerT'))
 
     return render_template('auth/registerT.html')
+
+
+@app.route('/logout')
+def logout():
+    session['loggedin'] = False 
+    session.pop('loggedin', None)
+    session.pop('id', None)
+    session.pop('name', None)
+    flash('Logged out successfully!', category = 'success')
+    return redirect(url_for('login'))
+
 
 # profile 
 @app.route('/home/profile')
@@ -194,6 +305,46 @@ def profile():
         # Trả về trang profile và truyền dữ liệu người dùng
         return render_template('common/profile.html', user=user, student = student)
 
+@app.route("/profile/payment", methods=["GET", "POST"])
+def payment():
+    if request.method == "POST":
+        # Lấy dữ liệu từ form
+        amount = request.form["amount"]
+        description = request.form["description"]
+        proof = request.files["proof"]
+
+        # Kiểm tra xem người dùng đã đăng nhập với vai trò tutor chưa
+        if 'user_id' in session:
+            user_id = session['user_id']
+            cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+            cur.execute("SELECT tutor_id, email FROM users JOIN tutor ON users.user_id = tutor.user_id WHERE users.user_id = %s", (user_id,))
+            tutor = cur.fetchone()
+            
+            if tutor:
+                tutor_email = tutor['email']
+                tutor_id = tutor['tutor_id']
+                print(tutor_email)
+                print(tutor_id)
+                print(app.root_path)
+                tutor_payment_dir = os.path.join(app.root_path, 'static/images_user/tutors/' + tutor_email + '/payment')
+                if not os.path.exists(tutor_payment_dir):
+                    os.makedirs(tutor_payment_dir)
+                proof_path = os.path.join(tutor_payment_dir, proof.filename)
+                print(proof_path)
+                proof.save(proof_path)
+
+                # Thêm thông tin thanh toán vào bảng payment
+                cur.execute("INSERT INTO payment (tutor_id, amount_paid, date_payment, img_payment) VALUES (%s, %s, %s, %s)",
+                            (tutor_id, amount, datetime.now().date(), '..\static/images_user/tutors/' + tutor_email + '/payment/'+proof.filename))
+                mysql.connection.commit()
+                flash("Thanh toán thành công!")
+                return redirect(url_for("home"))  # Chuyển hướng sau khi thanh toán
+            else:
+                flash("Bạn không có quyền thực hiện thanh toán!")
+                return redirect(url_for("home"))  # Chuyển hướng về trang chủ nếu người dùng không phải là tutor
+
+    # Nếu là GET request hoặc nếu có lỗi xảy ra trong POST request, render template payment.html
+    return render_template("tutor/payment.html")
 
 # post website
 @app.route('/home/post',methods=['GET', 'POST'])
@@ -239,7 +390,7 @@ def detail(class_id):
     cursor.close()
     # Trả về trang detail.html với thông tin lớp học được truy vấn từ cơ sở dữ liệu
     return render_template('tutor/detail.html', class_info=class_info)
-
+'''
 @app.route('/home/post/detail/<int:class_id>/register', methods=['POST'])
 def register_class(class_id):
     # Kiểm tra xem người dùng đã đăng nhập chưa
@@ -271,6 +422,59 @@ def register_class(class_id):
         print(e)  # In ra lỗi để debug
     
     return redirect(url_for('Class'))
+'''
+@app.route('/home/post/detail/<int:class_id>/register', methods=['POST'])
+def register_class(class_id):
+    # Kiểm tra xem người dùng đã đăng nhập chưa
+    if not session.get('loggedin'):
+        flash('Bạn phải đăng nhập để đăng kí nhận lớp.', 'danger')
+        return redirect(url_for('login'))
+    
+    # Lấy user_id từ session
+    user_id = session.get('user_id')
+
+    # Thực hiện truy vấn SQL để lấy tutor_id và giá tiền một buổi từ bảng tutor và class
+    try:
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute("SELECT tutor_id FROM tutor WHERE user_id = %s", (user_id,))
+        tutor = cursor.fetchone()
+        if tutor:
+            tutor_id = tutor['tutor_id']
+        else:
+            flash('Bạn phải là gia sư mới có thể đăng kí nhận lớp.', 'danger')
+            return redirect(url_for('Class'))
+
+        # Lấy thông tin về giá tiền một buổi từ bảng class
+        cursor.execute("SELECT price FROM classes WHERE class_id = %s", (class_id,))
+        class_info = cursor.fetchone()
+        if class_info:
+            price_per_session = class_info['price']
+        else:
+            flash('Không tìm thấy thông tin lớp học.', 'danger')
+            return redirect(url_for('Class'))
+
+        # Tính toán số tiền cần để đăng ký nhận lớp
+        required_balance = 0.3 * price_per_session * 10
+
+        # Kiểm tra số dư trong tài khoản của gia sư
+        cursor.execute("SELECT balance FROM tutor WHERE tutor_id = %s", (tutor_id,))
+        tutor_balance = cursor.fetchone()['balance']
+
+        if tutor_balance < required_balance:
+            flash('Bạn chưa đủ tiền trong tài khoản để đăng kí nhận lớp.', 'danger')
+            return redirect(url_for('payment'))  # Chuyển hướng về trang nạp thẻ
+
+        # Thêm thông tin vào bảng requirement
+        cursor.execute("INSERT INTO requirement (tutor_id, class_id) VALUES (%s, %s)", (tutor_id, class_id))
+        mysql.connection.commit()
+        cursor.close()
+        flash('Đăng kí nhận lớp thành công!', 'success')
+    except Exception as e:
+        flash('Đã xảy ra lỗi khi đăng kí nhận lớp. Vui lòng thử lại.', 'danger')
+        print(e)  # In ra lỗi để debug
+    
+    return redirect(url_for('Class'))
+
 
 # dang code 
 @app.route('/home/profile/update_profile', methods=['GET', 'POST'])
@@ -383,10 +587,22 @@ def list_tutor(class_id):
 def select_tutor(class_id, tutor_id):
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     try:
-        # Cập nhật thông tin vào bảng classes
-        cursor.execute("UPDATE classes SET tutor_id = %s, status = 'Đã có gia sư' WHERE class_id = %s", (tutor_id, class_id))
-        mysql.connection.commit()
-        flash('Bạn đã chọn gia sư thành công!', 'success')
+        # Truy vấn giá tiền một buổi học từ cơ sở dữ liệu
+        cursor.execute("SELECT price FROM classes WHERE class_id = %s", (class_id,))
+        price_info = cursor.fetchone()
+        if price_info:
+            price_per_session = price_info['price']
+            # Tính toán số tiền cần trừ từ tài khoản của gia sư
+            amount_to_deduct = 0.3 * price_per_session * 10
+            # Cập nhật số tiền trong tài khoản của gia sư
+            cursor.execute("UPDATE tutor SET balance = balance - %s WHERE tutor_id = %s", (amount_to_deduct, tutor_id))
+            mysql.connection.commit()
+            # Cập nhật thông tin vào bảng classes
+            cursor.execute("UPDATE classes SET tutor_id = %s, status = 'Đã có gia sư' WHERE class_id = %s", (tutor_id, class_id))
+            mysql.connection.commit()
+            flash('Bạn đã chọn gia sư thành công!', 'success')
+        else:
+            flash('Không tìm thấy thông tin về giá tiền của lớp học.', 'error')
     except Exception as e:
         print("Error:", e)
         mysql.connection.rollback()
@@ -394,6 +610,7 @@ def select_tutor(class_id, tutor_id):
     finally:
         cursor.close()
     return redirect(url_for('list_tutor', class_id=class_id))
+
 
 
 '''

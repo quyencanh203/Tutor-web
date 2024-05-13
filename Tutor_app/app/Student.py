@@ -83,10 +83,22 @@ class Student(User, Utils):
     def select_tutor(class_id, tutor_id):
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         try:
-            # Cập nhật thông tin vào bảng classes
-            cursor.execute("UPDATE classes SET tutor_id = %s, status = 'Đã có gia sư' WHERE class_id = %s", (tutor_id, class_id))
-            mysql.connection.commit()
-            flash('Bạn đã chọn gia sư thành công!', 'success')
+            # Truy vấn giá tiền một buổi học từ cơ sở dữ liệu
+            cursor.execute("SELECT price FROM classes WHERE class_id = %s", (class_id,))
+            price_info = cursor.fetchone()
+            if price_info:
+                price_per_session = price_info['price']
+                # Tính toán số tiền cần trừ từ tài khoản của gia sư
+                amount_to_deduct = 0.3 * price_per_session * 10
+                # Cập nhật số tiền trong tài khoản của gia sư
+                cursor.execute("UPDATE tutor SET balance = balance - %s WHERE tutor_id = %s", (amount_to_deduct, tutor_id))
+                mysql.connection.commit()
+                # Cập nhật thông tin vào bảng classes
+                cursor.execute("UPDATE classes SET tutor_id = %s, status = 'Đã có gia sư' WHERE class_id = %s", (tutor_id, class_id))
+                mysql.connection.commit()
+                flash('Bạn đã chọn gia sư thành công!', 'success')
+            else:
+                flash('Không tìm thấy thông tin về giá tiền của lớp học.', 'error')
         except Exception as e:
             print("Error:", e)
             mysql.connection.rollback()

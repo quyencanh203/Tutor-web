@@ -16,6 +16,7 @@
                     {% if user[5] == 'tutor'%}
                     <li class="list-group-item"><strong>Điện thoại:</strong> {{ tutor[2] }}</li>
                     <li class="list-group-item"><strong>Địa chỉ:</strong> {{ tutor[3] }}</li>
+                    <li class="list-group-item"><strong>Số dư tài khoản:</strong> {{ tutor[5] }} <a href="{{ url_for('payment') }}">Nạp thẻ</a></li>
                     {% elif user[5] == 'student' %}
                     <li class="list-group-item"><strong>Điện thoại:</strong> {{ student[2] }}</li>
                     <li class="list-group-item"><strong>Địa chỉ:</strong> {{ student[3] }}</li>

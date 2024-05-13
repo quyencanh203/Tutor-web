@@ -1,0 +1,53 @@
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thanh Toán</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    .img-custom {
+      max-width: 100%;
+      max-height: 300px; /* Điều chỉnh chiều cao tối đa của hình ảnh tại đây */
+      width: auto;
+      height: auto;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 offset-md-3 text-center">
+        <h2>Thanh Toán</h2>
+        <img src="{{ url_for('static', filename='bank.jpg')}}" class="img-fluid img-custom" alt="Mã QR">
+        <form method="POST" action="/profile/payment" enctype="multipart/form-data">
+          <div class="form-group">
+            <label for="amount">Số Tiền Chuyển:</label>
+            <input type="number" class="form-control" id="amount" name="amount" placeholder="Nhập số tiền">
+          </div>
+          <div class="form-group">
+            <label for="description">Nội Dung Chuyển Khoản:</label>
+            <input type="text" class="form-control" id="description" name="description" placeholder="Nhập nội dung">
+          </div>
+          <div class="form-group">
+            <label for="proof">Ảnh Minh Chứng:</label>
+            <input type="file" class="form-control-file" id="proof" name="proof">
+            <small class="form-text text-muted">Chỉ chấp nhận các loại tệp JPG, PNG, hoặc JPEG.</small>
+          </div>
+          <button type="submit" class="btn btn-primary">Thanh Toán</button>
+        </form>
+        
+      </div>
+    </div>
+  </div>
+  <!-- Bootstrap JS và các thư viện khác -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+{% endblock %}

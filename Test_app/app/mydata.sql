@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 CREATE TABLE users (
   user_id int(255) PRIMARY KEY AUTO_INCREMENT,
   name varchar(255),
@@ -48,82 +49,76 @@ CREATE TABLE booking (
 -- Generation Time: Apr 18, 2024 at 05:45 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
--- Database: `data_app_tutor`
---
-CREATE DATABASE IF NOT EXISTS `data_app_tutor` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `data_app_tutor`;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `classes`
---
-
-CREATE TABLE `classes` (
-  `class_id` int(11) NOT NULL,
-  `student_id` int(11) DEFAULT NULL,
-  `tutor_id` int(11) DEFAULT NULL,
-  `subject` varchar(255) DEFAULT NULL,
-  `address` varchar(255) DEFAULT NULL,
-  `status` enum('Chưa có gia sư','Đã có gia') DEFAULT NULL,
-  `description` text DEFAULT NULL,
-  `booking_date` date DEFAULT NULL,
-  `price` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `requirement`
---
-
-CREATE TABLE `requirement` (
-  `requirement_id` int(11) NOT NULL,
-  `tutor_id` int(11) DEFAULT NULL,
-  `class_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `student`
---
-
-CREATE TABLE `student` (
-  `student_id` int(11) NOT NULL,
-  `user_id` int(11) DEFAULT NULL,
-  `phone_student` varchar(15) DEFAULT NULL,
-  `year_of_birth_student` year(4) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tutor`
---
+=======
+use dataq;
+CREATE TABLE `users` (
+  `user_id` int PRIMARY KEY AUTO_INCREMENT,
+  `name` varchar(255),
+  `email` varchar(100),
+  `password` varchar(255),
+  `sex` enum('male','female'),
+  `role` enum('student','tutor','admin'), 
+   `avatar` varchar(255)
+);
+>>>>>>> dev2
 
 CREATE TABLE `tutor` (
-  `tutor_id` int(11) NOT NULL,
-  `user_id` int(11) DEFAULT NULL,
-  `phone_tutor` varchar(15) DEFAULT NULL,
-  `year_of_birth_tutor` year(4) DEFAULT NULL,
-  `education` text DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `tutor_id` int PRIMARY KEY AUTO_INCREMENT,
+  `user_id` int,
+  `phone_tutor` varchar(11),
+  `date_of_birth_tutor` date,
+  `education` text,
+  `balance` int
+);
 
--- --------------------------------------------------------
+CREATE TABLE `student` (
+  `student_id` int PRIMARY KEY AUTO_INCREMENT,
+  `user_id` int,
+  `phone_student` varchar(11),
+  `date_of_birth_student` date
+);
 
+CREATE TABLE `classes` (
+  `class_id` int PRIMARY KEY AUTO_INCREMENT,
+  `student_id` int,
+  `tutor_id` int,
+  `class_student` int,
+  `subject` varchar(255),
+  `address` varchar(255),
+  `session_of_per_week` int,
+  `status` enum('Chưa có gia sư','Đã có gia sư'),
+  `description` text,
+  `booking_date` date,
+  `price` int
+);
+
+CREATE TABLE `requirement` (
+  `requirement_id` int PRIMARY KEY AUTO_INCREMENT,
+  `tutor_id` int,
+  `class_id` int
+);
+
+CREATE TABLE `payment` (
+  `payment_id` int PRIMARY KEY AUTO_INCREMENT,
+  `tutor_id` int,
+  `amount_paid` int,
+  `date_payment` date,
+  `img_payment` varchar(255)
+);
+
+ALTER TABLE `student` ADD FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
+
+ALTER TABLE `tutor` ADD FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
+
+ALTER TABLE `classes` ADD FOREIGN KEY (`student_id`) REFERENCES `student` (`student_id`);
+
+ALTER TABLE `classes` ADD FOREIGN KEY (`tutor_id`) REFERENCES `tutor` (`tutor_id`);
+
+ALTER TABLE `requirement` ADD FOREIGN KEY (`tutor_id`) REFERENCES `tutor` (`tutor_id`);
+
+ALTER TABLE `requirement` ADD FOREIGN KEY (`class_id`) REFERENCES `classes` (`class_id`);
+
+<<<<<<< HEAD
 --
 -- Table structure for table `users`
 --
@@ -1265,3 +1260,6 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 >>>>>>> dev
+=======
+ALTER TABLE `payment` ADD FOREIGN KEY (`tutor_id`) REFERENCES `tutor` (`tutor_id`);
+>>>>>>> dev2

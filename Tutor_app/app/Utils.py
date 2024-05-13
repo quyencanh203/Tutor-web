@@ -1,5 +1,5 @@
 from db_config import *
-
+import os
 class Utils:
     @staticmethod
     def profile():
@@ -33,6 +33,15 @@ class Utils:
             date_of_birth_tutor = request.form['date_of_birth_tutor']
             education = request.form['education']
 
+            get_root_path = app.root_path + "\\static"
+            # thêm thư mục vào tutor
+            avt_folder = os.path.join(get_root_path, 'images_user', 'tutors', email, 'avt')
+            payment_folder = os.path.join(get_root_path, 'images_user', 'tutors', email, 'payment')
+
+            # Tạo thư mục avt và payment
+            os.makedirs(avt_folder, exist_ok=True)
+            os.makedirs(payment_folder, exist_ok=True)
+
             cur = mysql.connection.cursor()
 
             try:
@@ -64,6 +73,12 @@ class Utils:
             hashed_password = bcrypt.hashpw(password, bcrypt.gensalt()).decode('utf-8')
             phone_student = request.form['phone_student']
             date_of_birth_student = request.form['date_of_birth_student']
+            
+            get_root_path = app.root_path + "\\static"
+            # thêm thư mục vào student
+            user_folder = os.path.join(get_root_path, 'images_user', 'students', email, 'avt')
+            os.makedirs(user_folder, exist_ok=True)
+            
             # Create cursor
             cur = mysql.connection.cursor()
 
