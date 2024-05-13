@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang web tìm kiếm gia sư</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        .navbar {
+            background-color: #343a40;
+        }
+
+        .navbar-brand,
+        .navbar-nav .nav-link {
+            color: #fff;
+        }
+
+        .jumbotron {
+            background-color: #343a40;
+            color: #fff;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+        .slogan {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">Tìm Gia Sư</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Đăng ký
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{{url_for('registerS')}}">Đăng ký làm gia sư</a></li>
+                            <li><a class="dropdown-item" href="{{url_for('login')}}">Đăng ký thuê gia sư</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{url_for('login')}}">Đăng nhập</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container text-center">
+            <h1 class="display-4 h1">Tìm Gia Sư Online</h1>
+            <p class="lead">Dễ dàng tìm kiếm và kết nối với những gia sư phù hợp nhất cho bạn.</p>
+            <a class="btn btn-primary btn-lg" href="#" role="button">Tìm gia sư ngay</a>
+        </div>
+    </div>
+    <div class="container px-4 text-center">
+        <div class="row gx-5">
+          <div class="col">
+           <div class="p-3"><img src="..\static\img\kien-thuc-gia-su.jpg" alt=""></div>
+          </div>
+          <div class="col">
+            <div class="p-3">
+                <p>
+                    <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">
+                      Trung tâm gia sư xin chào.
+                    </button>
+                  </p>
+                  <div style="min-height: 120px;">
+                    <div class="collapse collapse-horizontal" id="collapseWidthExample">
+                      <div class="card card-body" style="width: 300px;">
+                        Trung Tâm Gia Sư Excellence chúng tôi cam kết cung cấp dịch vụ giáo dục chất lượng cao,
+                         tạo điều kiện học tập tối ưu và tận tâm hướng dẫn từng học viên,
+                          giúp họ phát triển toàn diện và tự tin bước vào tương lai sáng tạo.
+                      </div>
+                    </div>
+                  </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <div class="row">
+        <div class="col-md-4">
+            <h2 class="h2">Đăng ký tài khoản</h2>
+            <p>Đăng ký ngay để truy cập vào hàng nghìn gia sư có sẵn.</p>
+            <a class="btn btn-primary" href="#" role="button">Đăng ký ngay</a>
+        </div>
+        <div class="col-md-4">
+            <h2 class="h2">Tìm gia sư</h2>
+            <p>Tìm kiếm và lựa chọn những gia sư phù hợp với nhu cầu học tập của bạn.</p>
+            <a class="btn btn-primary" href="#" role="button">Tìm gia sư</a>
+        </div>
+        <div class="col-md-4">
+            <h2 class="h2">Hỗ trợ trực tuyến</h2>
+            <p>Đội ngũ hỗ trợ khách hàng luôn sẵn lòng giúp đỡ bạn mọi lúc mọi nơi.</p>
+            <a class="btn btn-primary" href="#" role="button">Liên hệ</a>
+        </div>
+    </div>
+    </div>
+
+    <footer class="bg-dark text-center text-white py-3">
+        <div class="container">
+            <p>&copy; 2024 Trang web tìm kiếm gia sư</p>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

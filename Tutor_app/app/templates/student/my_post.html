@@ -1,35 +1,33 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>My Posts</h1>
 <div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>#</th> <!-- Số thứ tự -->
-                        <th>Class ID</th>
-                        <th>Subject</th>
-                        <th>Class Student</th>
-                        <th>Booking Date</th>
-                        <th>List Tutor</th> <!-- Danh sách gia sư -->
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for class in student_classes %}
-                    <tr>
-                        <td>{{ loop.index }}</td> <!-- Số thứ tự -->
-                        <td>{{ class[0] }}</td> <!-- class_id -->
-                        <td>{{ class[4] }}</td> <!-- subject -->
-                        <td>{{ class[3] }}</td> <!-- class_student -->
-                        <td>{{ class[8] }}</td> <!-- booking_date -->
-                        <td><a href="{{ url_for('list_tutor', class_id=class[0]) }}">Xem danh sách gia sư</a></td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
+    <h1 class="my-4">My Posts</h1>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Class ID</th>
+                    <th scope="col">Subject</th>
+                    <th scope="col">Class Student</th>
+                    <th scope="col">Booking Date</th>
+                    <th scope="col">List Tutor</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for class in student_classes %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ class[0] }}</td>
+                    <td>{{ class[4] }}</td>
+                    <td>{{ class[3] }}</td>
+                    <td>{{ class[8] }}</td>
+                    <td><a href="{{ url_for('list_tutor', class_id=class[0]) }}" class="btn btn-primary">Xem danh sách gia sư</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
 </div>
 {% endblock %}

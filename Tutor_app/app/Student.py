@@ -17,12 +17,13 @@ class Student(User, Utils):
             class_student = request.form['class_student']
             subject = request.form['subject']
             address = request.form['address']
+            session_of_per_week = request.form['session_of_per_week']
             booking_date = datetime.now()
             price = request.form['price']
             description = request.form['description']
 
             cursor = mysql.connection.cursor()
-            cursor.execute('INSERT INTO classes (student_id, class_student, subject, address, status, description, booking_date, price) VALUES (%s, %s, %s ,%s, %s, %s, %s, %s)', (student_id, class_student, subject, address, 'Chưa có gia sư', description,booking_date, price))
+            cursor.execute('INSERT INTO classes (student_id, class_student, subject, address, session_of_per_week, status, description, booking_date, price) VALUES (%s, %s, %s ,%s, %s, %s, %s, %s, %s)', (student_id, class_student, subject, address,session_of_per_week, 'Chưa có gia sư', description,booking_date, price))
             mysql.connection.commit()
             cursor.close()
 

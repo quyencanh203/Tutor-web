@@ -101,7 +101,7 @@ class Tutor(User, Utils):
             print(type(tutor_id))
             cur.execute("SELECT * FROM requirement WHERE tutor_id = %s", (tutor_id,))
             requirement_db = cur.fetchall()
-            print(requirement_db)
+            print(type(requirement_db))
             class_ids = []
             for req in requirement_db:
                 class_ids.append(req['class_id'])

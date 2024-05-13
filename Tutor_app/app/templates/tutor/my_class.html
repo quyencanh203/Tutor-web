@@ -1,55 +1,57 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>DS lớp đã dạy</h1>
-<div>
-  <table class="table">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">class</th>
-        <th scope="col">subject</th>
-        <th scope="col">booking date</th>
-      </tr>
-    </thead>
-    <tbody>
-    {% for class in classes_db %} 
-      <tr>
-        <th scope="row">*</th>
-        <td>{{ class.class_student }}</td>
-        <td>{{ class.subject}}</td>
-        <td>{{class.booking_date}}</td>
-      </tr>
-    {% endfor %}
-    </tbody>
-  </table>
-</div>
+<div class="container">
+    <h1 class="my-4">Danh sách lớp đã dạy</h1>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Lớp</th>
+                    <th scope="col">Môn học</th>
+                    <th scope="col">Ngày đặt lịch</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for class in classes_db %} 
+                <tr>
+                    <th scope="row">*</th>
+                    <td>{{ class.class_student }}</td>
+                    <td>{{ class.subject }}</td>
+                    <td>{{ class.booking_date }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
 
-<h1>DS yêu cầu gửi đi </h1>
-<div>
-  <table class="table">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">class_id</th>
-        <th scope="col">student_id</th>
-        <th scope="col">class_student</th>
-        <th scope="col">subject</th>
-        <th scope="col">address</th>
-      </tr>
-    </thead>
-    <tbody>
-    {% for cldb2 in classes_db2 %} 
-      <tr>
-        <th scope="row">*</th>
-        <td>{{ cldb2.class_id }}</td>
-        <td>{{ cldb2.student_id }}</td>
-        <td>{{ cldb2.class_student }}</td>
-        <td>{{ cldb2.subject }}</td>
-        <td>{{ cldb2.address }}</td>
-      </tr>
-    {% endfor %}
-    </tbody>
-  </table>
+    <h1 class="my-4">Danh sách yêu cầu gửi đi</h1>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">mã lớp</th>
+                    <th scope="col">mã học sinh</th>
+                    <th scope="col">lớp học sinh</th>
+                    <th scope="col">môn học</th>
+                    <th scope="col">địa chỉ</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for cldb2 in classes_db2 %} 
+                <tr>
+                    <th scope="row">*</th>
+                    <td>{{ cldb2.class_id }}</td>
+                    <td>{{ cldb2.student_id }}</td>
+                    <td>{{ cldb2.class_student }}</td>
+                    <td>{{ cldb2.subject }}</td>
+                    <td>{{ cldb2.address }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </div>
 {% endblock %}

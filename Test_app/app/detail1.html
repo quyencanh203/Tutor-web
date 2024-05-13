@@ -1,6 +1,9 @@
+<!-- {% extends "base.html" %}
 
-{% extends "base.html" %}
 {% block content %}
+<div class="head__text">
+    <h1>Thông tin chi tiết lớp học</h1>
+</div>
 <div id="container__detail">
     <div id="detail">
         <h2>Yêu cầu : </h2>
@@ -21,9 +24,6 @@
             <button onclick="searchAddress()">Tìm kiếm</button>
         </div>
         <div id="myMap" style="width: 100%; height: 400px;"></div>
-        <div>
-            <button onclick="getCurrentLocation()">Hiện vị trí hiện tại</button>
-        </div>
     </div>
 </div>
 
@@ -90,37 +90,5 @@
             searchManager.geocode(requestOptions);
         });
     }
-
-    function getCurrentLocation() {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function (position) {
-                var loc = new Microsoft.Maps.Location(position.coords.latitude, position.coords.longitude);
-                map.setView({ center: loc });
-                var pin = new Microsoft.Maps.Pushpin(loc, {
-                    title: 'Vị trí hiện tại',
-                    subTitle: 'Bạn đang ở đây',
-                    text: 'ME'
-                });
-                map.entities.push(pin);
-            }, function (error) {
-                switch (error.code) {
-                    case error.PERMISSION_DENIED:
-                        alert("Trình duyệt không cho phép truy cập vị trí.");
-                        break;
-                    case error.POSITION_UNAVAILABLE:
-                        alert("Thông tin vị trí không có sẵn.");
-                        break;
-                    case error.TIMEOUT:
-                        alert("Yêu cầu vượt quá thời gian cho phép.");
-                        break;
-                    case error.UNKNOWN_ERROR:
-                        alert("Đã xảy ra lỗi không xác định.");
-                        break;
-                }
-            });
-        } else {
-            alert("Trình duyệt không hỗ trợ định vị vị trí.");
-        }
-    }
 </script>
-{% endblock %}
+{% endblock %} -->

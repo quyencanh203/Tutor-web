@@ -3,7 +3,7 @@
 {% block content %}
 <div class="container mt-5">
     <div class="text-center mb-4">
-        <h2>Register as a Tutor</h2>
+        <h2>Đăng kí làm gia sư</h2>
     </div>
     <form action="{{ url_for('registerT') }}" method="post">
         {% if message %}
@@ -26,7 +26,7 @@
             <input type="text" class="form-control" id="phone_tutor" name="phone_tutor" placeholder="Enter phone tutor" required>
         </div>
         <div class="mb-3">
-            <label for="date_of_birth_tutor" class="form-label">Date of birth:</label>
+            <label for="date_of_birth_tutor" class="form-label">Date of birth:(yyyy-mm-dd)</label>
             <input type="text" class="form-control" id="date_of_birth_tutor" name="date_of_birth_tutor" placeholder="Enter date of birth" required>
         </div>
         <div class="mb-3">
