@@ -159,3 +159,7 @@ class Utils:
     @staticmethod
     def backgroup_app():
         return render_template('backgroup_app.html')
+    
+    @staticmethod
+    def top_tutor():
+        return 0
