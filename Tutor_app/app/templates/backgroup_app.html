@@ -60,8 +60,8 @@
                             Đăng ký
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="{{url_for('registerS')}}">Đăng ký làm gia sư</a></li>
-                            <li><a class="dropdown-item" href="{{url_for('login')}}">Đăng ký thuê gia sư</a></li>
+                            <li><a class="dropdown-item" href="{{url_for('registerT')}}">Đăng ký làm gia sư</a></li>
+                            <li><a class="dropdown-item" href="{{url_for('registerS')}}">Đăng ký tài khoản học sinh</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
@@ -80,7 +80,7 @@
         <div class="container text-center">
             <h1 class="display-4 h1">Tìm Gia Sư Online</h1>
             <p class="lead">Dễ dàng tìm kiếm và kết nối với những gia sư phù hợp nhất cho bạn.</p>
-            <a class="btn btn-primary btn-lg" href="#" role="button">Tìm gia sư ngay</a>
+            <a class="btn btn-primary btn-lg" href="{{url_for('login')}}" role="button">Tìm gia sư ngay</a>
         </div>
     </div>
     <div class="container px-4 text-center">
@@ -111,13 +111,13 @@
     <div class="row">
         <div class="col-md-4">
             <h2 class="h2">Đăng ký tài khoản</h2>
-            <p>Đăng ký ngay để truy cập vào hàng nghìn gia sư có sẵn.</p>
-            <a class="btn btn-primary" href="#" role="button">Đăng ký ngay</a>
+            <p>Đăng ký ngay để truy cập vào hàng nghìn gia sư có sẵn và được tư vấn tận tình.</p>
+            <a class="btn btn-primary" href="{{url_for('registerS')}}" role="button">Đăng ký ngay</a>
         </div>
         <div class="col-md-4">
             <h2 class="h2">Tìm gia sư</h2>
             <p>Tìm kiếm và lựa chọn những gia sư phù hợp với nhu cầu học tập của bạn.</p>
-            <a class="btn btn-primary" href="#" role="button">Tìm gia sư</a>
+            <a class="btn btn-primary" href="{{url_for('login')}}" role="button">Tìm gia sư</a>
         </div>
         <div class="col-md-4">
             <h2 class="h2">Hỗ trợ trực tuyến</h2>

@@ -36,8 +36,43 @@
     </div>
   </div>
 </div>
+<!-- top tutor -->
+{% if session['role'] == 'student'%}
+<p><h2>Top gia sư được chọn nhiều nhất</h2></p>
+<div id="services" class="services-section py-5" style="background-color: #EEEEEE;">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="service-item text-center py-4 bg-white rounded">
+          <i class="bi bi-book fs-1 text-primary mb-3"></i>
+          <h3 class="mb-3">tên gia sư</h3>
+          <p class="mb-0">mô tả</p>
+          <a href="#" class="btn btn-primary btn-lg">xem gia sư</a> 
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="service-item text-center py-4 bg-white rounded">
+          <i class="bi bi-people fs-1 text-primary mb-3"></i>
+          <h3 class="mb-3">tên gia sư</h3>
+          <p class="mb-0">mô tả</p>
+          <a href="#" class="btn btn-primary btn-lg">xem gia sư</a> 
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="service-item text-center py-4 bg-white rounded">
+          <i class="bi bi-award fs-1 text-primary mb-3"></i>
+          <h3 class="mb-3">tên gia sư</h3>
+          <p class="mb-0">mô tả </p>
+          <a href="#" class="btn btn-primary btn-lg">xem gia sư</a> 
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
+{% endif %}
 <!-- Services Section -->
+<p><h2>Dịch vụ của chúng tôi </h2></p>
 <div id="services" class="services-section py-5" style="background-color: #EEEEEE;">
   <div class="container">
     <div class="row">
@@ -46,7 +81,7 @@
           <i class="bi bi-book fs-1 text-primary mb-3"></i>
           <h3 class="mb-3">Tư vấn giáo dục</h3>
           <p class="mb-0">Chúng tôi cung cấp dịch vụ tư vấn giáo dục để giúp học sinh và phụ huynh lựa chọn giáo viên phù hợp nhất.</p>
-          <a href="#" class="btn btn-primary btn-lg">Tìm Gia Sư</a> 
+          <a href="{{url_for('post')}}" class="btn btn-primary btn-lg">Tạo bài đăng</a> 
         </div>
       </div>
       <div class="col-md-4">
@@ -54,7 +89,7 @@
           <i class="bi bi-people fs-1 text-primary mb-3"></i>
           <h3 class="mb-3">Gia sư chất lượng</h3>
           <p class="mb-0">Đội ngũ gia sư của chúng tôi được chọn lọc kỹ lưỡng, có kiến thức sâu và kinh nghiệm giảng dạy.</p>
-          <a href="#" class="btn btn-primary btn-lg">Tìm Gia Sư</a> 
+          <a href="{{url_for('my_post')}}" class="btn btn-primary btn-lg">Quản lý bài đăng</a> 
         </div>
       </div>
       <div class="col-md-4">
