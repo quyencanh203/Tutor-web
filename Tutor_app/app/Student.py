@@ -80,6 +80,28 @@ class Student(User, Utils):
         return render_template('student/list_tutor.html', tutors_info=tutors_info, class_id=class_id)
     
     @staticmethod
+    def list_tutor_receive(class_id):
+        # Truy vấn cơ sở dữ liệu để lấy danh sách các tutor_id từ bảng requirement
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        status = 'Đã có gia sư'
+        # cursor.execute("SELECT tutor_id FROM requirement WHERE class_id = %s", (class_id,))
+        cursor.execute("SELECT tutor_id FROM requirement WHERE class_id = %s AND status = %s", (class_id,status,))
+        tutor_ids = cursor.fetchall()
+        # Khởi tạo danh sách chứa thông tin của các gia sư
+        tutors_info = []
+
+        # Lặp qua từng tutor_id để lấy thông tin từ bảng users và bảng tutor
+        for tutor_id in tutor_ids:
+            cursor.execute("SELECT t.tutor_id, u.user_id, u.name, u.sex, t.phone_tutor, t.education FROM users u INNER JOIN tutor t ON u.user_id = t.user_id WHERE t.tutor_id = %s", (tutor_id['tutor_id'],))
+            tutor_info = cursor.fetchone()
+            tutors_info.append(tutor_info)
+            print(tutor_info)
+        cursor.close()
+
+        # Trả về dữ liệu cho template để hiển thị
+        return render_template('student/my_post.html', tutors_info_receive=tutors_info, class_id_receive=class_id)
+    
+    @staticmethod
     def select_tutor(class_id, tutor_id):
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         try:

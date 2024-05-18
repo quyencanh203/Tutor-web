@@ -3,6 +3,8 @@ from flask_mysqldb import MySQL
 import bcrypt
 from datetime import datetime
 import MySQLdb.cursors
+from flask_socketio import SocketIO
+from flask_socketio import emit
 
 app = Flask(__name__)
 
@@ -15,3 +17,4 @@ app.config["MYSQL_DB"] = "dataq"
 app.config["SECRET_KEY"] = 'secret_key'
 
 mysql = MySQL(app)
+socketio = SocketIO(app)

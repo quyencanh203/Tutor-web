@@ -11,6 +11,7 @@
                     <th scope="col">Lớp</th>
                     <th scope="col">Môn học</th>
                     <th scope="col">Ngày đặt lịch</th>
+                    <th scope="col">Nhắn tin</th>
                 </tr>
             </thead>
             <tbody>
@@ -20,6 +21,11 @@
                     <td>{{ class.class_student }}</td>
                     <td>{{ class.subject }}</td>
                     <td>{{ class.booking_date }}</td>
+                    <td> <!-- Thêm cột mới -->
+                        <form action="{{ url_for('chat') }}" method="">
+                            <button type="submit" class="btn btn-primary">Chọn</button>
+                        </form>                        
+                    </td>
                 </tr>
             {% endfor %}
             </tbody>

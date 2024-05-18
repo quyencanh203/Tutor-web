@@ -76,5 +76,30 @@ def select_tutor(class_id, tutor_id):
 def backgroup_app():
     return Utils.backgroup_app()
 
+@app.route('/chat')
+def chat():
+    return Utils.chat()
+
+users = {}
+
+@socketio.on("connect")
+def handle_connect():
+    print("Client connected!")
+
+@socketio.on("user_join")
+def handle_user_join(username):
+    print(f"User {username} joined!")
+    users[username] = request.sid
+
+@socketio.on("new_message")
+def handle_new_message(message):
+    print(f"New message: {message}")
+    username = None 
+    for user in users:
+        if users[user] == request.sid:
+            username = user
+    emit("chat", {"message": message, "username": username}, broadcast=True)
+
 if __name__ == '__main__':
-    app.run('0.0.0.0', '5000', debug=True)
+    # app.run('0.0.0.0', '5000', debug=True)
+    socketio.run(app, debug=True, host='0.0.0.0', port=5000)

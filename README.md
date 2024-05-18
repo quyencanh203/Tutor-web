@@ -26,6 +26,7 @@ Hướng dẫn cài đặt dự án và thiết lập môi trường phát tri�
 - pip install virtualenv 
 - virtualenv venv
 - venv/Scripts/activate
+- cd Tutor_app/app
 - pip install -r requirements.txt 
 - cd Tutor_app/app 
 - python app.py 

@@ -144,3 +144,7 @@ class Utils:
     @staticmethod
     def backgroup_app():
         return render_template('backgroup_app.html')
+    
+    @staticmethod
+    def chat():
+        return render_template("common/chat.html")
