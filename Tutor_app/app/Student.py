@@ -84,18 +84,28 @@ class Student(User, Utils):
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         try:
             # Truy vấn giá tiền một buổi học từ cơ sở dữ liệu
-            cursor.execute("SELECT price FROM classes WHERE class_id = %s", (class_id,))
+            cursor.execute("SELECT price, session_of_per_week FROM classes WHERE class_id = %s", (class_id,))
             price_info = cursor.fetchone()
             if price_info:
                 price_per_session = price_info['price']
+                session_of_per_week = price_info['session_of_per_week']
                 # Tính toán số tiền cần trừ từ tài khoản của gia sư
-                amount_to_deduct = 0.3 * price_per_session * 10
+                amount_to_deduct = 0.3 * price_per_session * session_of_per_week * 4
                 # Cập nhật số tiền trong tài khoản của gia sư
                 cursor.execute("UPDATE tutor SET balance = balance - %s WHERE tutor_id = %s", (amount_to_deduct, tutor_id))
                 mysql.connection.commit()
                 # Cập nhật thông tin vào bảng classes
                 cursor.execute("UPDATE classes SET tutor_id = %s, status = 'Đã có gia sư' WHERE class_id = %s", (tutor_id, class_id))
                 mysql.connection.commit()
+                
+                # Cập nhật bảng requirement: đặt trạng thái yêu cầu của gia sư được chọn thành "Đã được nhận"
+                cursor.execute("UPDATE requirement SET status = 'Đã được nhận' WHERE class_id = %s AND tutor_id = %s", (class_id, tutor_id))
+                mysql.connection.commit()
+                
+                # Đặt trạng thái các yêu cầu khác của gia sư khác không được chọn thành "Không được nhận"
+                cursor.execute("UPDATE requirement SET status = 'Không được nhận' WHERE class_id = %s AND tutor_id != %s", (class_id, tutor_id))
+                mysql.connection.commit()
+                
                 flash('Bạn đã chọn gia sư thành công!', 'success')
             else:
                 flash('Không tìm thấy thông tin về giá tiền của lớp học.', 'error')
@@ -106,5 +116,6 @@ class Student(User, Utils):
         finally:
             cursor.close()
         return redirect(url_for('list_tutor', class_id=class_id))
+
 
 

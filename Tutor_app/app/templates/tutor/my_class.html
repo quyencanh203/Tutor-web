@@ -11,20 +11,23 @@
                     <th scope="col">Lớp</th>
                     <th scope="col">Môn học</th>
                     <th scope="col">Ngày đặt lịch</th>
+                    <th scope="col">Số điện thoại học sinh</th>
                 </tr>
             </thead>
             <tbody>
-            {% for class in classes_db %} 
+            {% for class in classes_db %}
                 <tr>
                     <th scope="row">*</th>
                     <td>{{ class.class_student }}</td>
                     <td>{{ class.subject }}</td>
                     <td>{{ class.booking_date }}</td>
+                    <td>{{ class.phone_student }}</td>
                 </tr>
             {% endfor %}
             </tbody>
         </table>
     </div>
+</div>
 
     <h1 class="my-4">Danh sách yêu cầu gửi đi</h1>
     <div class="table-responsive">
@@ -48,6 +51,7 @@
                     <td>{{ cldb2.class_student }}</td>
                     <td>{{ cldb2.subject }}</td>
                     <td>{{ cldb2.address }}</td>
+                    <td>{{ cldb2.status }}</td> <!-- Cột trạng thái -->
                 </tr>
             {% endfor %}
             </tbody>

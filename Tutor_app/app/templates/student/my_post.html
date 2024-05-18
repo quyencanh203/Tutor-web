@@ -7,7 +7,7 @@
         <table class="table table-striped">
             <thead class="thead-dark">
                 <tr>
-                    <th scope="col">#</th>
+                    <th scope="col">STT</th>
                     <th scope="col">Class ID</th>
                     <th scope="col">Subject</th>
                     <th scope="col">Class Student</th>
@@ -23,7 +23,13 @@
                     <td>{{ class[4] }}</td>
                     <td>{{ class[3] }}</td>
                     <td>{{ class[8] }}</td>
-                    <td><a href="{{ url_for('list_tutor', class_id=class[0]) }}" class="btn btn-primary">Xem danh sách gia sư</a></td>
+                    <td>
+                        {% if class[7] == 'Đã có gia sư' %}
+                            Đã chọn gia sư
+                        {% else %}
+                            <a href="{{ url_for('list_tutor', class_id=class[0]) }}" class="btn btn-primary">Xem danh sách gia sư</a>
+                        {% endif %}
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody>

@@ -53,16 +53,17 @@ class Tutor(User, Utils):
                 return redirect(url_for('Class'))
 
             # Lấy thông tin về giá tiền một buổi từ bảng class
-            cursor.execute("SELECT price FROM classes WHERE class_id = %s", (class_id,))
+            cursor.execute("SELECT price, session_of_per_week FROM classes WHERE class_id = %s", (class_id,))
             class_info = cursor.fetchone()
             if class_info:
                 price_per_session = class_info['price']
+                session_of_per_week = class_info['session_of_per_week']
             else:
                 flash('Không tìm thấy thông tin lớp học.', 'danger')
                 return redirect(url_for('Class'))
 
             # Tính toán số tiền cần để đăng ký nhận lớp
-            required_balance = 0.3 * price_per_session * 10
+            required_balance = 0.3 * price_per_session * session_of_per_week * 4
 
             # Kiểm tra số dư trong tài khoản của gia sư
             cursor.execute("SELECT balance FROM tutor WHERE tutor_id = %s", (tutor_id,))
@@ -87,7 +88,6 @@ class Tutor(User, Utils):
         return redirect(url_for('Class'))
 
     @staticmethod
-
     def my_class():
         try:
             # connect database
@@ -112,11 +112,17 @@ class Tutor(User, Utils):
             tutor_id = tutor_db[0]['tutor_id']
             print('tutor_id -->', tutor_id)
             # fetch class data from classes table
-            cur.execute("SELECT * FROM classes WHERE tutor_id = %s", (tutor_id,))
+            cur.execute("""
+            SELECT classes.*, student.phone_student 
+            FROM classes 
+            JOIN student ON classes.student_id = student.student_id 
+            WHERE classes.tutor_id = %s
+        """, (tutor_id,))
             classes_db = cur.fetchall()
             print(classes_db)
             cur.close()
 
+            # connection db
             # connection db
             cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
             # get user_id
@@ -130,15 +136,19 @@ class Tutor(User, Utils):
             requirement_db = cur.fetchall()
             print(type(requirement_db))
             class_ids = []
+            requirements = {}  # Dictionary to store status of each class
             for req in requirement_db:
                 class_ids.append(req['class_id'])
-            # class_id = requirement_db[0]['class_id']
+                requirements[req['class_id']] = req['status']  # Store status of each class
+
             print(class_ids)
-            classes_db2 = ()
+            classes_db2 = []
             for class_id in class_ids:
                 cur.execute("SELECT * FROM classes WHERE class_id = %s", (class_id,))
-                class_db = cur.fetchall()
-                classes_db2= classes_db2 + class_db 
+                class_db = cur.fetchone()
+                if class_db:
+                    class_db['status'] = requirements[class_id]  # Add status to each class
+                    classes_db2.append(class_db)
                 print(classes_db2)
             cur.close()
             
