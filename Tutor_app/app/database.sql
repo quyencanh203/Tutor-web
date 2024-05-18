@@ -145,6 +145,10 @@ insert into users ( name, email, password, sex, role) values ( 'Bernarr Shower',
 insert into users ( name, email, password, sex, role) values ( 'Alvis Lanfear', 'alanfear1c@smugmug.com', '$2b$12$cLBTjAy4hHWUyHIel1sTzeBQZ2PfP5XXj6c5J7zBHzrpdnTkP0Aem', 'female', 'tutor');
 insert into users ( name, email, password, sex, role) values ( 'Alexine Moden', 'amoden1d@unesco.org', '$2b$12$cLBTjAy4hHWUyHIel1sTzeBQZ2PfP5XXj6c5J7zBHzrpdnTkP0Aem', 'male', 'student');
 
+<<<<<<< HEAD
+=======
+use dataq;
+>>>>>>> a49e315ed3e4743a01a5e5a746096478313b138c
 insert into classes (student_id, class_student, subject, address, session_of_per_week, status, description, booking_date, price) values (15, 1, 'Tin', 'Ninh Thuận', 2, 'Chưa có gia sư', 'CTU', '2024-01-30', 180000);
 insert into classes (student_id, class_student, subject, address, session_of_per_week, status, description, booking_date, price) values (20, 9, 'Tiếng Anh', 'Sóc Trăng', 4, 'Chưa có gia sư', 'BA', '2024-01-20', 120000);
 insert into classes (student_id, class_student, subject, address, session_of_per_week, status, description, booking_date, price) values (9, 8, 'Sinh', 'Bắc Kạn', 1, 'Chưa có gia sư', 'CTU', '2024-04-12', 150000);

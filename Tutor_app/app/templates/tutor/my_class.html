@@ -7,7 +7,7 @@
         <table class="table table-striped">
             <thead class="thead-dark">
                 <tr>
-                    <th scope="col">#</th>
+                    <th scope="col">STT</th>
                     <th scope="col">Lớp</th>
                     <th scope="col">Môn học</th>
                     <th scope="col">Ngày đặt lịch</th>
@@ -17,7 +17,7 @@
             <tbody>
             {% for class in classes_db %}
                 <tr>
-                    <th scope="row">*</th>
+                    <th scope="row">{{loop.index}}</th>
                     <td>{{ class.class_student }}</td>
                     <td>{{ class.subject }}</td>
                     <td>{{ class.booking_date }}</td>
@@ -27,25 +27,24 @@
             </tbody>
         </table>
     </div>
-</div>
-
     <h1 class="my-4">Danh sách yêu cầu gửi đi</h1>
     <div class="table-responsive">
         <table class="table table-striped">
             <thead class="thead-dark">
                 <tr>
-                    <th scope="col">#</th>
+                    <th scope="col">STT</th>
                     <th scope="col">mã lớp</th>
                     <th scope="col">mã học sinh</th>
                     <th scope="col">lớp học sinh</th>
                     <th scope="col">môn học</th>
                     <th scope="col">địa chỉ</th>
+                    <th scope="col">Trạng thái</th>
                 </tr>
             </thead>
             <tbody>
             {% for cldb2 in classes_db2 %} 
                 <tr>
-                    <th scope="row">*</th>
+                    <th scope="row">{{loop.index}}</th>
                     <td>{{ cldb2.class_id }}</td>
                     <td>{{ cldb2.student_id }}</td>
                     <td>{{ cldb2.class_student }}</td>
