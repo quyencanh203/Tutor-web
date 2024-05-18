@@ -3,6 +3,7 @@ from User import *
 from Student import *
 from Tutor import *
 from Utils import *
+from Admin import *
 
 @app.route('/', methods=['GET', 'POST'])
 def login():
@@ -79,7 +80,11 @@ def backgroup_app():
 
 @app.route('/admin', methods=['GET', 'POST'])
 def admin():
-    return User.admin()
+    return Admin.admin()
+
+# @app.route('/admin', methods=['GET', 'POST'])
+# def drop_user():
+#     return Admin.drop_user()
 
 @app.route("/profile/payment", methods=["GET", "POST"])
 def payment():
