@@ -9,7 +9,7 @@ Thông tin chi tiết về sản phẩm và cách cài đặt chạy demo đư�
 
 1. [Thông tin dự án](#thông-tin-dự-án)
 2. [Cài đặt](#cài-đặt)
-3. [Sử dụng](#sử-dụng)
+3. [Sử dụng](https://github.com/quyencanh203/Web-App-Software-Engineering-/blob/main/README.md#L32-L33)
 
 ## Thông tin dự án
 
@@ -29,4 +29,4 @@ Hướng dẫn cài đặt dự án và thiết lập môi trường phát tri�
 - python app.py 
 ```bash
 
-## sử dụng
+## sử dụng 
