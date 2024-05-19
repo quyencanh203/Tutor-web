@@ -1,5 +1,7 @@
 # Dự án Phần mềm Kỹ thuật Web App
 
+![Screenshot 2024-05-19 134312](https://github.com/quyencanh203/Web-App-Software-Engineering-/assets/125014823/84ea2cf5-e7d1-404f-ac34-ce8fc9a5cfc4)
+
 ## Giới thiệu
 
 Đây là dự án Phần mềm Kỹ thuật Web App được phát triển bởi [Quyền Cảnh](https://github.com/quyencanh203) và [Phạm Quân](https://github.com/hquan3404). Dự án này tập trung vào việc xây dựng một ứng dụng web hiện đại và linh hoạt giúp kết nối học sinh và gia sư một cách hiệu quả.
