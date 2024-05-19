@@ -68,31 +68,8 @@ Hướng dẫn chi tiết cách sử dụng ứng dụng có sẵn trong [README
 
 Dưới đây là cấu trúc thư mục của dự án:
 
-├───Tutor_app
-│   └───app
-│       ├───static
-│       │   ├───css
-│       │   ├───images_user
-│       │   │   ├───students
-│       │   │   │   └───<student_email>
-│       │   │   │       └───avt
-│       │   │   └───tutors
-│       │   │       └───<tutor_email>
-│       │   │           ├───avt
-│       │   │           └───payment
-│       │   ├───img
-│       │   └───js
-│       ├───templates
-│       │   ├───auth
-│       │   ├───common
-│       │   ├───student
-│       │   └───tutor
-│       └───__pycache__
-└───venv
-    ├───Lib
-    │   └───site-packages
-    │       └───<packages>
-    └───Scripts
+![Screenshot 2024-05-19 160617](https://github.com/quyencanh203/Web-App-Software-Engineering-/assets/125014823/9c7b7fff-7c51-4f6e-b0f7-e32db8f5123c)
+
 
 ## Đóng góp
 
