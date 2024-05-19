@@ -7,6 +7,7 @@
 Đây là dự án Phần mềm Kỹ thuật Web App được phát triển bởi [Quyền Cảnh](https://github.com/quyencanh203) và [Phạm Quân](https://github.com/hquan3404). Dự án này tập trung vào việc xây dựng một ứng dụng web hiện đại và linh hoạt giúp kết nối học sinh và gia sư một cách hiệu quả.
 
 Thông tin chi tiết về sản phẩm và cách cài đặt chạy demo được trình bày trong video và bài báo cáo. Bạn có thể xem thêm tại [VIDEO VÀ BÁO CÁO BTL](https://drive.google.com/drive/folders/16rZRvvGM9Y5cE_o_7BkkvhTaqto2yB-O?usp=sharing).
+Bản mềm [bài báo cáo](https://excellent-zebu-ec6.notion.site/B-O-C-O-C-NG-NGH-PH-N-M-M-e4ea19d3a7e9472bb68893c4257997fd?pvs=4) 
 
 ## Mục lục
 
