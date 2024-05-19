@@ -24,7 +24,7 @@ def registerT():
 def registerS():
     return Utils.registerS()
 
-@app.route('/home/profile')
+@app.route('/home/profile', methods=['GET', 'POST'])
 def profile():
     return Utils.profile()
 

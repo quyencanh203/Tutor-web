@@ -14,11 +14,13 @@ class Utils:
             cur.execute("SELECT * FROM tutor WHERE user_id = %s", (user_id,))
             tutor = cur.fetchone()
             cur.close()
+            Utils.get_image(user_id=user_id)
             return render_template('common/profile.html', user=user, tutor=tutor)
         elif session['role'] == 'student':
             cur.execute("SELECT * FROM student WHERE user_id = %s", (user_id,))
             student = cur.fetchone()
             cur.close()
+            Utils.get_image(user_id=user_id)
             return render_template('common/profile.html', user=user, student=student)
 
     @staticmethod
@@ -159,6 +161,19 @@ class Utils:
     @staticmethod
     def backgroup_app():
         return render_template('backgroup_app.html')
+    
+    @staticmethod
+    def get_image(user_id):
+        if request.method == 'POST':
+            user_id = user_id
+            avatar = request.form['avatar']
+            cur = mysql.connection.cursor()
+            cur.execute('UPDATE users SET avatar = %s WHERE user_id = %s',(avatar, user_id))
+            mysql.connection.commit()
+            cur.close()
+            flash('bạn đã link ảnh giao diện thành công.', category='success')
+            return redirect(url_for('profile'))
+            # return render_template('common/profile.html')
     
     @staticmethod
     def top_tutor():

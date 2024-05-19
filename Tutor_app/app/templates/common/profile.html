@@ -6,20 +6,21 @@
     <div class="row">
         <div class="col-md-4 offset-md-4">
             <div class="card">
-                <img src="https://cdn.24h.com.vn/upload/3-2023/images/2023-07-09/Than-hinh-muot-muon-muot-cua-gai-xinh-xu-Han-co-trieu-fan-han-kyung-1688907525-217-width1440height1728.jpeg" class="card-img-top" alt="Avatar">
+                <img src={{user[6]}} class="card-img-top" alt="Avatar">
                 <div class="card-body text-center">
                     <h5 class="card-title">{{ user[1] }}</h5>
-                    <p class="card-text"> Thông tin cơ bản </p>
+                    <p class="card-text"> Thông tin cơ bản {{user[5]}} </p>
                 </div>
                 <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><form action="" method="post"><input type="text" name="avatar" placeholder="nhập link ảnh giao diện"><button type="submit" class="btn btn-success">Xác nhận</button></form></li>
                     <li class="list-group-item"><strong>Email:</strong> {{ user[2] }}</li>
                     {% if user[5] == 'tutor'%}
                     <li class="list-group-item"><strong>Điện thoại:</strong> {{ tutor[2] }}</li>
-                    <li class="list-group-item"><strong>Địa chỉ:</strong> {{ tutor[3] }}</li>
+                    <li class="list-group-item"><strong>Năm sinh:</strong> {{ tutor[3] }}</li>
                     <li class="list-group-item"><strong>Số dư tài khoản:</strong> {{ tutor[5] }} <a href="{{ url_for('payment') }}">Nạp thẻ</a></li>
                     {% elif user[5] == 'student' %}
                     <li class="list-group-item"><strong>Điện thoại:</strong> {{ student[2] }}</li>
-                    <li class="list-group-item"><strong>Địa chỉ:</strong> {{ student[3] }}</li>
+                    <li class="list-group-item"><strong>Năm sinh:</strong> {{ student[3] }}</li>
                     {% endif %}
                 </ul>
                 <div class="card-body">

@@ -2,18 +2,18 @@
 
 {% block content %}
 <div class="container">
-    <h1 class="my-4">My Posts</h1>
+    <h1 class="my-4">CÁC BÀI ĐĂNG CỦA TÔI</h1>
     <div class="table-responsive">
         <table class="table table-striped">
             <thead class="thead-dark">
                 <tr>
 
                     <th scope="col">STT</th>
-                    <th scope="col">Class ID</th>
-                    <th scope="col">Subject</th>
-                    <th scope="col">Class Student</th>
-                    <th scope="col">Booking Date</th>
-                    <th scope="col">List Tutor</th>
+                    <th scope="col">MÃ LỚP HỌC</th>
+                    <th scope="col">MÔN HỌC</th>
+                    <th scope="col">lỚP</th>
+                    <th scope="col">NGÀY TẠO BÀI ĐĂNG</th>
+                    <th scope="col">DANH SÁCH GIA SƯ YÊU CẦU</th>
                 </tr>
             </thead>
             <tbody>
@@ -23,7 +23,7 @@
                     <td>{{ class[0] }}</td>
                     <td>{{ class[4] }}</td>
                     <td>{{ class[3] }}</td>
-                    <td>{{ class[8] }}</td>
+                    <td>{{ class[9] }}</td>
                     <td>
                         {% if class[7] == 'Đã có gia sư' %}
                             Đã chọn gia sư
