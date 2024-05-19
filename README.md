@@ -23,12 +23,8 @@ Thông tin chi tiết về sản phẩm và cách cài đặt chạy demo đư�
 Dự án lập trình web gia sư nhằm tạo ra một nền tảng kết nối học sinh và gia sư. Mục tiêu chính của web là tạo ra một nơi để học sinh có thể đưa ra yêu cầu tìm kiếm gia sư và gia sư có thể đăng ký nhận lớp. 
 
 ## Tính năng
+![usecase diagram drawio](https://github.com/quyencanh203/Web-App-Software-Engineering-/assets/125014823/ee891f10-2f40-4e51-a9cf-3b889664d79a)
 
-- Học sinh có thể tạo yêu cầu tìm kiếm gia sư với các tiêu chí cụ thể.
-- Gia sư có thể duyệt qua các yêu cầu và đăng ký nhận lớp.
-- Hệ thống quản lý tài khoản cho cả học sinh và gia sư.
-- Giao diện thân thiện và dễ sử dụng.
-- Hỗ trợ tìm kiếm và lọc yêu cầu dựa trên các tiêu chí như môn học, địa điểm, và mức phí.
 
 ## Cài đặt
 
